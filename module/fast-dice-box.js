@@ -38,8 +38,22 @@ class FastDiceBox extends Application {
     }
 
     activateListeners(html) {
+        html.find(".collapsible").mousedown(this.onCollapse);
         html.find(".roll").mousedown(this.onFastRoll);
 
+    }
+
+    async onCollapse(ev) {
+        const btn =  ev.target;
+        btn.classList.toggle("active");
+
+        const content = btn.nextElementSibling;
+
+        if (content.style.display === "flex"){
+            content.style.display = "none";
+        } else {
+            content.style.display = "flex";
+        }
     }
 
     async onFastRoll(ev) {

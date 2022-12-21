@@ -54,7 +54,8 @@ a.inline-roll {
   -webkit-mask-size: cover;
 }
 
-#fast-dice-box .roll:hover {
+#fast-dice-box .roll:hover,
+#fast-dice-box .collapsible:hover {
   transform: scale(1.2);
 }
 
@@ -109,6 +110,44 @@ a.inline-roll {
   align-content: center;
   text-align: center;
   width: 100%;
+}
+
+#fast-dice-box .collapsible {
+  /*background: url("../assets/dice-cup.svg");*/
+  position: relative;
+  z-index: 0;
+  pointer-events: all;
+  width: 48px;
+  height: 48px;
+  transition: all .2s ease-in-out;
+
+}
+
+#fast-dice-box .collapsible.active {
+  border-bottom: 1px solid white;
+}
+
+#fast-dice-box .collapsible:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: var(--dice-color);
+  width: 48px;
+  height: 48px;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: cover;
+  -webkit-mask-image: url("../assets/dice-cup.svg");
+}
+
+
+#fast-dice-box .content {
+  display: none;
+  overflow: visible;
+  height: fit-content;
+  flex-direction: column;
+  row-gap: 0.8em;
 }
 
 
