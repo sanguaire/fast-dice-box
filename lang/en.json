@@ -1,0 +1,19 @@
+{
+  "fdb": {
+    "dice": {
+      "d10": "d10",
+      "d100": "d100",
+      "d12": "d12",
+      "d20": "d20",
+      "d4": "d4",
+      "d6": "d6",
+      "d66": "d66",
+      "d8": "d8",
+      "two-d6": "2d6"
+    },
+    "dice-color": "Color of dice",
+    "dice-color-hint": "Sets the dice color for the FastDiceBox.",
+    "modifier": "Modifier",
+    "no-of-dice": "No of dice"
+  }
+}
