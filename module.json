@@ -1,0 +1,32 @@
+{
+  "name": "fast-dice-box",
+  "title": "Fast dice box",
+  "description": "A box to make an one click dice roll",
+  "version": "0.1",
+  "author": "André Kurth",
+  "minimumCoreVersion": "9.238",
+  "compatibleCoreVersion": "10",
+  "scripts": [],
+  "esmodules": ["module/fast-dice-box.js"],
+  "styles": ["styles/fast-dice-box.css"],
+  "packs": [],
+  "dependencies": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+	{
+      "lang": "de",
+      "name": "German",
+      "path": "lang/de.json"		
+	}
+  ],
+  "socket": false,
+  "system": [],
+  "library": false,
+  "url": "https://github.com/sanguaire/fast-dice-box/",
+  "manifest": "https://raw.githubusercontent.com/sanguaire/fast-dice-box/main/module.json",
+  "download": "https://github.com/sanguaire/fast-dice-box/releases/download/v0.1/warlock-skin-v0.1.zip"
+}

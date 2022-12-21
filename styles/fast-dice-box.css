@@ -1,0 +1,114 @@
+/* ---------------------------- */
+/*             Sass             */
+/* This is your Sass entry file */
+/* ---------------------------- */
+/*a.entity-link,
+a.content-link,
+a.inline-roll {
+  line-height: 1.8em;
+}*/
+
+#fast-dice-box{
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  row-gap: 0.8em;
+  align-self: flex-end;
+  /*noinspection CssUnresolvedCustomProperty*/
+  z-index: calc(var(--z-index-ui) + 10);
+  margin-right: 1em;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position: absolute;
+  top: 5px;
+}
+
+#fast-dice-box .roll{
+  position: relative;
+  z-index: 0;
+  font-size: var(--font-size-18);
+  font-weight: bold;
+  width: 48px;
+  height: 48px;
+  border: none;
+  pointer-events: all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: -1px -1px 1px #ffffff, 1px -1px 1px #ffffff, -1px 1px 1px #ffffff, 1px 1px 1px #ffffff;
+  transition: all .2s ease-in-out;
+}
+
+#fast-dice-box .roll:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: var(--dice-color);
+  width: 48px;
+  height: 48px;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: cover;
+}
+
+#fast-dice-box .roll:hover {
+  transform: scale(1.2);
+}
+
+#fast-dice-box .d100:before {
+  -webkit-mask-image:  url(../assets/d100-grey.svg);
+                 }
+
+#fast-dice-box .two-d6:before {
+  -webkit-mask-image:  url(../assets/two-d6-grey.svg);
+}
+
+#fast-dice-box .d20:before {
+  -webkit-mask-image: url(../assets/d20-grey.svg);
+
+}
+
+#fast-dice-box .d12:before {
+  -webkit-mask-image:  url(../assets/d12-grey.svg);
+}
+
+#fast-dice-box .d10:before {
+  -webkit-mask-image:  url(../assets/d10-grey.svg);
+}
+
+#fast-dice-box .d8:before {
+  -webkit-mask-image:  url(../assets/d8-grey.svg);
+}
+
+#fast-dice-box .d6:before {
+  -webkit-mask-image:  url(../assets/d6-grey.svg);
+}
+
+#fast-dice-box .d4:before {
+  -webkit-mask-image:  url(../assets/d4-grey.svg);
+}
+
+.fast-dice-box form {
+  font-family: var(--font-primary);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 0.5em;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.fast-dice-box input {
+  display: block;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: var(--font-size-18);
+  align-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+
