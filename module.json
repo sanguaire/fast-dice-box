@@ -1,16 +1,29 @@
 {
+  "id": "fast-dice-box",
   "name": "fast-dice-box",
   "title": "Fast dice box",
   "description": "A box to make an one click dice roll",
-  "version": "0.1",
+  "version": "0.3",
   "author": "André Kurth",
   "minimumCoreVersion": "9.238",
   "compatibleCoreVersion": "10",
+  "compatibility": {
+    "minimum": 9,
+    "verified": "10",
+    "maximum": "10"
+  },
   "scripts": [],
   "esmodules": ["module/fast-dice-box.js"],
   "styles": ["styles/fast-dice-box.css"],
   "packs": [],
-  "dependencies": [],
+  "requieres": [{
+    "id": "socketlib",
+    "type": "module",
+    "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
+    "compatibility": {
+      "verified": "1.0.12"
+    }
+  }],
   "languages": [
     {
       "lang": "en",
@@ -23,7 +36,7 @@
       "path": "lang/de.json"		
 	}
   ],
-  "socket": false,
+  "socket": true,
   "system": [],
   "library": false,
   "url": "https://github.com/sanguaire/fast-dice-box/",
