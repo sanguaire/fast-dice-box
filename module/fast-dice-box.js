@@ -1,3 +1,7 @@
+import {newDiceRoll, initializeToastr} from "./notification.js";
+
+let socket;
+
 async function preloadTemplates() {
     const templatePaths = [
         'modules/fast-dice-box/templates/apps/fast-dice-box.html',
@@ -20,6 +24,7 @@ class FastDiceBox extends Application {
     _injectHTML(html) {
         $("#ui-top")
             .after(html);
+
         this._element = html;
         html.hide().fadeIn(200);
     }
@@ -88,16 +93,22 @@ class FastDiceBox extends Application {
             noOfDice = result.noOfDice;
         }
 
+        if(/^\d/.test(target.dataset.roll)) noOfDice = '';
+
         const formula = modifier === 0
             ? `${noOfDice}${target.dataset.roll}`
             : modifier < 0
                 ? `${noOfDice}${target.dataset.roll}-${Math.abs(modifier)}`
                 : `${noOfDice}${target.dataset.roll}+${modifier}`
 
-        await new Roll(formula).toMessage({
+        const roll = await new Roll(formula).roll({async: true});
+
+        const message = await roll.toMessage({
             speaker: {actor: character},
             rollMode: game.settings.get("core", "rollMode")
         });
+
+        socket.executeForEveryone("newDiceRoll", message);
     }
 }
 
@@ -115,11 +126,22 @@ Hooks.once('init', async () => {
         onChange: async () => await ui.fastDiceBox.render(true)
     });
 
+    game.settings.register("fast-dice-box", "notification", {
+        name: game.i18n.localize("fdb.notification"),
+        hint: game.i18n.localize("fdb.notification-hint"),
+        scope: "user",
+        type: Boolean,
+        default: true,
+        config: true
+    });
+
     // Preload Handlebars templates
     await preloadTemplates();
 
     // Register custom sheets (if any)
     CONFIG.ui.fastDiceBox = FastDiceBox;
+
+    initializeToastr();
 });
 
 // When ready
@@ -136,4 +158,9 @@ Hooks.on("renderSettingsConfig", (app, html, data) => {
         .attr("data-edit", name)
         .val(colour)
         .insertAfter($(`input[name="${name}"]`, html).addClass("color"));
+});
+
+Hooks.once("socketlib.ready", () => {
+    socket = socketlib.registerModule("fast-dice-box");
+    socket.register("newDiceRoll", newDiceRoll);
 });

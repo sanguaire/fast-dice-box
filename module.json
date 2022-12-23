@@ -13,8 +13,8 @@
     "maximum": "10"
   },
   "scripts": [],
-  "esmodules": ["module/fast-dice-box.js"],
-  "styles": ["styles/fast-dice-box.css"],
+  "esmodules": ["module/fast-dice-box.js", "libs/toastr-2.1.1/toastr.min.js"],
+  "styles": ["styles/fast-dice-box.css", "libs/toastr-2.1.1/toastr.min.css"],
   "packs": [],
   "requieres": [{
     "id": "socketlib",

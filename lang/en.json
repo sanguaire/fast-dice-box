@@ -14,6 +14,8 @@
     "dice-color": "Color of dice",
     "dice-color-hint": "Sets the dice color for the FastDiceBox.",
     "modifier": "Modifier",
-    "no-of-dice": "No of dice"
+    "no-of-dice": "No of dice",
+    "notification": "Notification",
+    "notification-hint": "Show additional notification on roll."
   }
 }

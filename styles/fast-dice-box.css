@@ -9,6 +9,8 @@ a.inline-roll {
 }*/
 
 #fast-dice-box{
+  --fdb-background-color: rgba(255, 255, 255, 0.3);
+  pointer-events: all;
   display: flex;
   height: fit-content;
   flex-direction: column;
@@ -19,7 +21,7 @@ a.inline-roll {
   margin-right: 1em;
   border-radius: 5px;
   padding: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--fdb-background-color);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: absolute;
   top: 5px;
@@ -141,13 +143,43 @@ a.inline-roll {
   -webkit-mask-image: url("../assets/dice-cup.svg");
 }
 
-
 #fast-dice-box .content {
   display: none;
   overflow: visible;
   height: fit-content;
   flex-direction: column;
   row-gap: 0.8em;
+}
+
+div#toast-container {
+  position: absolute;
+  z-index: 999999;
+}
+
+#toast-container>div.toast-info {
+  background-image: none !important;
+}
+
+.toast-info {
+  background-color: rgb(253 255 227 / 80%) !important;
+  color: black !important;
+}
+
+.toast-top-right {
+  top: 0px !important;
+  right: 80px !important;
+}
+
+.toast-message a.message-delete {
+  display: none;
+}
+
+.toast-message h4.message-sender {
+  font-family: var(--font-accent);
+}
+
+#toast-container>div {
+  padding: 15px !important;
 }
 
 
