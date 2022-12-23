@@ -1,6 +1,7 @@
 import {newDiceRoll, initializeToastr} from "./notification.js";
 
 let socket;
+const msgIds = {};
 
 async function preloadTemplates() {
     const templatePaths = [
@@ -49,12 +50,12 @@ class FastDiceBox extends Application {
     }
 
     async onCollapse(ev) {
-        const btn =  ev.target;
+        const btn = ev.target;
         btn.classList.toggle("active");
 
         const content = btn.nextElementSibling;
 
-        if (content.style.display === "flex"){
+        if (content.style.display === "flex") {
             content.style.display = "none";
         } else {
             content.style.display = "flex";
@@ -93,7 +94,7 @@ class FastDiceBox extends Application {
             noOfDice = result.noOfDice;
         }
 
-        if(/^\d/.test(target.dataset.roll)) noOfDice = '';
+        if (/^\d/.test(target.dataset.roll)) noOfDice = '';
 
         const formula = modifier === 0
             ? `${noOfDice}${target.dataset.roll}`
@@ -108,9 +109,24 @@ class FastDiceBox extends Application {
             rollMode: game.settings.get("core", "rollMode")
         });
 
-        socket.executeForEveryone("newDiceRoll", message);
+        if (game.dice3d) {
+            msgIds[message.id] = message;
+        } else {
+            socket.executeForEveryone("newDiceRoll", message);
+        }
+
     }
 }
+
+Hooks.once('diceSoNiceReady', () => {
+    Hooks.on('diceSoNiceRollComplete', (messageId) => {
+        console.log(`fast-dice-box: ${messageId}`);
+        if (msgIds[messageId]) {
+            socket.executeForEveryone("newDiceRoll", msgIds[messageId]);
+            delete msgIds[messageId];
+        }
+    });
+});
 
 // Initialize module
 Hooks.once('init', async () => {
