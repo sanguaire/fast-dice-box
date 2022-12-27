@@ -1,6 +1,9 @@
 export const newDiceRoll = async (rollMessage) => {
     if(game.settings.get("fast-dice-box", "notification")) {
         const html = await rollMessage.getHTML();
+
+        html.find(".dice-tooltip").get(0).classList.add("expanded");
+
         toastr.info(`${html[0].innerHTML}`);
     }
 };
@@ -14,6 +17,6 @@ export const initializeToastr = () => {
     toastr.options.newestOnTop = true;
     toastr.options.positionClass = "toast-top-right";
     toastr.options.escapeHtml = false;
-    toastr.options.target = "#fast-dice-box";
+    toastr.options.target = "#ui-middle";
 
 };
