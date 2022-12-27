@@ -13,9 +13,11 @@
     },
     "dice-color": "Würfelfarbe",
     "dice-color-hint": "Legt die Würfelfarbe in der FastDiceBox fest.",
+    "left": "Position links",
     "modifier": "Modifikator",
     "no-of-dice": "Würfelanzahl",
     "notification": "Benachrichtigung",
-    "notification-hint": "Zusätzliche Benachrichtiung bei einem Wurf anzeigen."
+    "notification-hint": "Zusätzliche Benachrichtiung bei einem Wurf anzeigen.",
+    "top": "Position oben"
   }
 }

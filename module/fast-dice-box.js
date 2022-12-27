@@ -21,11 +21,12 @@ class FastDiceBox extends Application {
         });
     }
 
-    _injectHTML(html) {
-        $("#ui-top")
+    async _injectHTML(html) {
+        $("#interface")
             .after(html);
 
         this._element = html;
+
         html.hide().fadeIn(200);
     }
 
@@ -36,9 +37,15 @@ class FastDiceBox extends Application {
     async render(force = false, options = {}) {
         if (!this.rendered) await super._render(force, options);
 
-        const color = game.settings.get("fast-dice-box", "diceColor");
+        const color = await game.settings.get("fast-dice-box", "diceColor");
+        const top = await game.settings.get("fast-dice-box", "top");
+        const left = await game.settings.get("fast-dice-box", "left");
+
 
         this._element.get(0).style.setProperty("--dice-color", color);
+        this._element.get(0).style.setProperty("top", top + "px");
+        this._element.get(0).style.setProperty("left", left + "px");
+
 
     }
 
@@ -46,6 +53,7 @@ class FastDiceBox extends Application {
         html.find(".collapsible").mousedown(this.onCollapse);
         html.find(".roll").mousedown(this.onFastRoll);
 
+        this.dragElement(html.get(0), html.find("#drag").get(0));
     }
 
     async onCollapse(ev) {
@@ -110,6 +118,52 @@ class FastDiceBox extends Application {
 
         socket.executeForEveryone("newDiceRoll", message);
     }
+
+    dragElement = (element, dragzone) => {
+        let pos1 = 0,
+            pos2 = 0,
+            pos3 = 0,
+            pos4 = 0;
+//MouseUp occurs when the user releases the mouse button
+        const dragMouseUp = async () => {
+            document.onmouseup = null;
+//onmousemove attribute fires when the pointer is moving while it is over an element.
+            document.onmousemove = null;
+
+            await game.settings.set("fast-dice-box", "top", Number.parseInt(element.style.top.replace("px", "")));
+            await game.settings.set("fast-dice-box", "left", Number.parseInt(element.style.left.replace("px", "")));
+
+            element.classList.remove("drag");
+        };
+
+        const dragMouseMove = (event) => {
+
+            event.preventDefault();
+//clientX property returns the horizontal coordinate of the mouse pointer
+            pos1 = pos3 - event.clientX;
+//clientY property returns the vertical coordinate of the mouse pointer
+            pos2 = pos4 - event.clientY;
+            pos3 = event.clientX;
+            pos4 = event.clientY;
+//offsetTop property returns the top position relative to the parent
+            element.style.top = `${element.offsetTop - pos2}px`;
+            element.style.left = `${element.offsetLeft - pos1}px`;
+        };
+
+        const dragMouseDown = (event) => {
+            event.preventDefault();
+
+            pos3 = event.clientX;
+            pos4 = event.clientY;
+
+            element.classList.add("drag");
+
+            document.onmouseup = dragMouseUp;
+            document.onmousemove = dragMouseMove;
+        };
+
+        dragzone.onmousedown = dragMouseDown;
+    };
 }
 
 // Initialize module
@@ -133,6 +187,24 @@ Hooks.once('init', async () => {
         type: Boolean,
         default: true,
         config: true
+    });
+
+    game.settings.register("fast-dice-box", "top", {
+       name: game.i18n.localize("fdb.top"),
+       scope: "user",
+       type: Number,
+       default: 100,
+       config: true,
+       onChange: async () => await ui.fastDiceBox.render(true)
+    });
+
+    game.settings.register("fast-dice-box", "left", {
+        name: game.i18n.localize("fdb.left"),
+        scope: "user",
+        type: Number,
+        default: 100,
+        config: true,
+        onChange: async () => await ui.fastDiceBox.render(true)
     });
 
     // Preload Handlebars templates
