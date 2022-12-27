@@ -1,4 +1,5 @@
 import {newDiceRoll, initializeToastr} from "./notification.js";
+import {initializeSettings} from "./settings.js";
 
 let socket;
 const msgIds = {};
@@ -132,24 +133,7 @@ Hooks.once('diceSoNiceReady', () => {
 Hooks.once('init', async () => {
     console.log('fast-dice-box | Initializing');
 
-    game.settings.register("fast-dice-box", "diceColor", {
-        name: game.i18n.localize("fdb.dice-color"),
-        hint: game.i18n.localize("fdb.dice-color-hint"),
-        scope: "user",
-        type: String,
-        default: "#ff0000",
-        config: true,
-        onChange: async () => await ui.fastDiceBox.render(true)
-    });
-
-    game.settings.register("fast-dice-box", "notification", {
-        name: game.i18n.localize("fdb.notification"),
-        hint: game.i18n.localize("fdb.notification-hint"),
-        scope: "user",
-        type: Boolean,
-        default: true,
-        config: true
-    });
+    initializeSettings();
 
     // Preload Handlebars templates
     await preloadTemplates();
