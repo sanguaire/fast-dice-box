@@ -13,7 +13,6 @@ a.inline-roll {
   pointer-events: all;
   display: flex;
   height: fit-content;
-  flex-direction: column;
   row-gap: 0.8em;
   /*align-self: flex-end;*/
   /*noinspection CssUnresolvedCustomProperty*/
@@ -25,6 +24,16 @@ a.inline-roll {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: absolute;
   /*top: 5px;*/
+}
+
+#fast-dice-box.row,
+#fast-dice-box.row > .content {
+  flex-direction: row;
+}
+
+#fast-dice-box.column,
+#fast-dice-box.column > .content {
+  flex-direction: column;
 }
 
 #fast-dice-box .roll{
@@ -122,11 +131,15 @@ a.inline-roll {
   width: 48px;
   height: 48px;
   transition: all .2s ease-in-out;
-
 }
 
-#fast-dice-box .collapsible.active {
+#fast-dice-box.column .collapsible.active {
   border-bottom: 1px solid white;
+}
+
+#fast-dice-box.row .collapsible.active {
+  border-right: 1px solid white;
+  margin-right: 0.2em;
 }
 
 #fast-dice-box .collapsible:before {
@@ -147,8 +160,8 @@ a.inline-roll {
   display: none;
   overflow: visible;
   height: fit-content;
-  flex-direction: column;
   row-gap: 0.8em;
+  column-gap: 0.8em;
 }
 
 div#toast-container {

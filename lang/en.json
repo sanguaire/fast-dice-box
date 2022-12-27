@@ -1,5 +1,7 @@
 {
   "fdb": {
+    "column-direction": "Direction as column",
+    "column-direction-hint": "Buttons are aligned as column",
     "dice": {
       "d10": "d10",
       "d100": "d100",

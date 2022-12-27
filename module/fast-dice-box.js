@@ -40,12 +40,14 @@ class FastDiceBox extends Application {
         const color = await game.settings.get("fast-dice-box", "diceColor");
         const top = await game.settings.get("fast-dice-box", "top");
         const left = await game.settings.get("fast-dice-box", "left");
-
+        const directionColumn = await game.settings.get("fast-dice-box", "columnDirection");
 
         this._element.get(0).style.setProperty("--dice-color", color);
         this._element.get(0).style.setProperty("top", top + "px");
         this._element.get(0).style.setProperty("left", left + "px");
 
+        this._element.get(0).classList.add(directionColumn ? "column" : "row");
+        this._element.get(0).classList.remove(directionColumn ? "row" : "column");
 
     }
 
@@ -203,6 +205,16 @@ Hooks.once('init', async () => {
         scope: "user",
         type: Number,
         default: 100,
+        config: true,
+        onChange: async () => await ui.fastDiceBox.render(true)
+    });
+
+    game.settings.register("fast-dice-box", "columnDirection", {
+        name: game.i18n.localize("fdb.column-direction"),
+        hint: game.i18n.localize("fdb.column-direction-hint"),
+        scope: "user",
+        type: Boolean,
+        default: true,
         config: true,
         onChange: async () => await ui.fastDiceBox.render(true)
     });

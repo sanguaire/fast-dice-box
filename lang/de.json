@@ -1,5 +1,7 @@
 {
   "fdb": {
+    "column-direction": "Richtung als Spalte",
+    "column-direction-hint": "Richte die Buttons als Spalte aus",
     "dice": {
       "d10": "W10",
       "d100": "W100",
