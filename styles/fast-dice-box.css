@@ -179,8 +179,8 @@ div#toast-container {
 }
 
 .toast-top-right {
-  top: 0px !important;
-  right: 80px !important;
+  top: 15px !important;
+  right: 15px !important;
 }
 
 .toast-message a.message-delete {
