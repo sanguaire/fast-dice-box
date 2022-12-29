@@ -13,7 +13,7 @@
     "maximum": "10"
   },
   "scripts": [],
-  "esmodules": ["module/fast-dice-box.js", "libs/toastr-2.1.1/toastr.min.js"],
+  "esmodules": ["module/main.js", "libs/toastr-2.1.1/toastr.min.js"],
   "styles": ["styles/fast-dice-box.css", "libs/toastr-2.1.1/toastr.min.css"],
   "packs": [],
   "requieres": [{
