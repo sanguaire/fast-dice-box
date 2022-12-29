@@ -1,14 +1,4 @@
-import {newDiceRoll, initializeToastr} from "./notification.js";
-
-let socket;
-
-async function preloadTemplates() {
-    const templatePaths = [
-        'modules/fast-dice-box/templates/apps/fast-dice-box.html',
-    ];
-
-    return loadTemplates(templatePaths);
-}
+import {newDiceRoll} from "./notification.js";
 
 class FastDiceBox extends Application {
     static get defaultOptions() {
@@ -168,83 +158,4 @@ class FastDiceBox extends Application {
     };
 }
 
-// Initialize module
-Hooks.once('init', async () => {
-    console.log('fast-dice-box | Initializing');
 
-    game.settings.register("fast-dice-box", "diceColor", {
-        name: game.i18n.localize("fdb.dice-color"),
-        hint: game.i18n.localize("fdb.dice-color-hint"),
-        scope: "user",
-        type: String,
-        default: "#ff0000",
-        config: true,
-        onChange: async () => await ui.fastDiceBox.render(true)
-    });
-
-    game.settings.register("fast-dice-box", "notification", {
-        name: game.i18n.localize("fdb.notification"),
-        hint: game.i18n.localize("fdb.notification-hint"),
-        scope: "user",
-        type: Boolean,
-        default: true,
-        config: true
-    });
-
-    game.settings.register("fast-dice-box", "top", {
-       name: game.i18n.localize("fdb.top"),
-       scope: "user",
-       type: Number,
-       default: 100,
-       config: true,
-       onChange: async () => await ui.fastDiceBox.render(true)
-    });
-
-    game.settings.register("fast-dice-box", "left", {
-        name: game.i18n.localize("fdb.left"),
-        scope: "user",
-        type: Number,
-        default: 100,
-        config: true,
-        onChange: async () => await ui.fastDiceBox.render(true)
-    });
-
-    game.settings.register("fast-dice-box", "columnDirection", {
-        name: game.i18n.localize("fdb.column-direction"),
-        hint: game.i18n.localize("fdb.column-direction-hint"),
-        scope: "user",
-        type: Boolean,
-        default: true,
-        config: true,
-        onChange: async () => await ui.fastDiceBox.render(true)
-    });
-
-    // Preload Handlebars templates
-    await preloadTemplates();
-
-    // Register custom sheets (if any)
-    CONFIG.ui.fastDiceBox = FastDiceBox;
-
-    initializeToastr();
-});
-
-// When ready
-Hooks.once('ready', async () => {
-    await ui.fastDiceBox.render(true);
-});
-
-Hooks.on("renderSettingsConfig", (app, html, data) => {
-    let name, colour;
-    name = `fast-dice-box.diceColor`;
-    colour = game.settings.get("fast-dice-box", "diceColor");
-    $("<input>")
-        .attr("type", "color")
-        .attr("data-edit", name)
-        .val(colour)
-        .insertAfter($(`input[name="${name}"]`, html).addClass("color"));
-});
-
-Hooks.once("socketlib.ready", () => {
-    socket = socketlib.registerModule("fast-dice-box");
-    socket.register("newDiceRoll", newDiceRoll);
-});
