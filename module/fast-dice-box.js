@@ -1,10 +1,10 @@
 import {newDiceRoll} from "./notification.js";
 
-class FastDiceBox extends Application {
+export class FastDiceBox extends Application {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            width: 100,
-            left: 50,
+            left: 0,
+            top: 0,
             id: "fast-dice-box",
             template: "modules/fast-dice-box/templates/apps/fast-dice-box.html",
             popOut: false
@@ -116,10 +116,10 @@ class FastDiceBox extends Application {
             pos2 = 0,
             pos3 = 0,
             pos4 = 0;
-//MouseUp occurs when the user releases the mouse button
+        //MouseUp occurs when the user releases the mouse button
         const dragMouseUp = async () => {
             document.onmouseup = null;
-//onmousemove attribute fires when the pointer is moving while it is over an element.
+            //onmousemove attribute fires when the pointer is moving while it is over an element.
             document.onmousemove = null;
 
             await game.settings.set("fast-dice-box", "top", Number.parseInt(element.style.top.replace("px", "")));

@@ -1,5 +1,6 @@
 import {registerSettings} from "./settings.js";
 import {initializeToastr, newDiceRoll} from "./notification.js";
+import {FastDiceBox} from "./fast-dice-box.js";
 
 let socket;
 
@@ -13,7 +14,6 @@ export const registerHookHandlers = () =>{
             // Preload Handlebars templates
             await preloadTemplates();
 
-            // Register custom sheets (if any)
             CONFIG.ui.fastDiceBox = FastDiceBox;
 
             initializeToastr();
