@@ -20,7 +20,7 @@ export const registerHookHandlers = () =>{
         });
 
     Hooks.once('ready', async () => {
-        await ui.fastDiceBox.render(true);
+       await ui.fastDiceBox.render(true);
     });
 
 
@@ -38,6 +38,11 @@ export const registerHookHandlers = () =>{
     Hooks.once("socketlib.ready", () => {
         socket = socketlib.registerModule("fast-dice-box");
         socket.register("newDiceRoll", newDiceRoll);
+
+        game["fast-dice-box"] = {
+            socket: socket
+        }
+
     });
 };
 

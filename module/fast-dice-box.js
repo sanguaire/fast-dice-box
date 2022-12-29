@@ -108,7 +108,7 @@ export class FastDiceBox extends Application {
             rollMode: game.settings.get("core", "rollMode")
         });
 
-        socket.executeForEveryone("newDiceRoll", message);
+        await game["fast-dice-box"].socket.executeForEveryone("newDiceRoll", message);
     }
 
     dragElement = (element, dragzone) => {
