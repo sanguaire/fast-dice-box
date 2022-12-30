@@ -1,5 +1,7 @@
+import {CONST} from "./CONST.js";
+
 export const registerSettings = () => {
-    game.settings.register("fast-dice-box", "diceColor", {
+    game.settings.register(CONST.MODULE_NAME, "diceColor", {
         name: game.i18n.localize("fdb.dice-color"),
         hint: game.i18n.localize("fdb.dice-color-hint"),
         scope: "client",
@@ -9,7 +11,7 @@ export const registerSettings = () => {
         onChange: async () => await ui.fastDiceBox.render(true)
     });
 
-    game.settings.register("fast-dice-box", "notification", {
+    game.settings.register(CONST.MODULE_NAME, "notification", {
         name: game.i18n.localize("fdb.notification"),
         hint: game.i18n.localize("fdb.notification-hint"),
         scope: "client",
@@ -18,7 +20,7 @@ export const registerSettings = () => {
         config: true
     });
 
-    game.settings.register("fast-dice-box", "top", {
+    game.settings.register(CONST.MODULE_NAME, "top", {
         name: game.i18n.localize("fdb.top"),
         scope: "client",
         type: Number,
@@ -27,7 +29,7 @@ export const registerSettings = () => {
         onChange: async () => await ui.fastDiceBox.render(true)
     });
 
-    game.settings.register("fast-dice-box", "left", {
+    game.settings.register(CONST.MODULE_NAME, "left", {
         name: game.i18n.localize("fdb.left"),
         scope: "client",
         type: Number,
@@ -36,7 +38,7 @@ export const registerSettings = () => {
         onChange: async () => await ui.fastDiceBox.render(true)
     });
 
-    game.settings.register("fast-dice-box", "columnDirection", {
+    game.settings.register(CONST.MODULE_NAME, "columnDirection", {
         name: game.i18n.localize("fdb.column-direction"),
         hint: game.i18n.localize("fdb.column-direction-hint"),
         scope: "client",

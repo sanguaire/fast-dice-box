@@ -1,5 +1,7 @@
+import {CONST} from "./CONST.js";
+
 export const newDiceRoll = async (rollMessage) => {
-    if(game.settings.get("fast-dice-box", "notification")) {
+    if(game.settings.get(CONST.MODULE_NAME, "notification")) {
         const html = await rollMessage.getHTML();
 
         html.find(".dice-tooltip").get(0).classList.add("expanded");

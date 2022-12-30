@@ -1,12 +1,13 @@
 import {newDiceRoll} from "./notification.js";
+import {CONST} from "./CONST.js";
 
 export class FastDiceBox extends Application {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             left: 0,
             top: 0,
-            id: "fast-dice-box",
-            template: "modules/fast-dice-box/templates/apps/fast-dice-box.html",
+            id: CONST.MODULE_NAME,
+            template: `modules/${CONST.MODULE_NAME}/templates/apps/fast-dice-box.html`,
             popOut: false
         });
     }
@@ -27,10 +28,10 @@ export class FastDiceBox extends Application {
     async render(force = false, options = {}) {
         if (!this.rendered) await super._render(force, options);
 
-        const color = await game.settings.get("fast-dice-box", "diceColor");
-        const top = await game.settings.get("fast-dice-box", "top");
-        const left = await game.settings.get("fast-dice-box", "left");
-        const directionColumn = await game.settings.get("fast-dice-box", "columnDirection");
+        const color = await game.settings.get(CONST.MODULE_NAME, "diceColor");
+        const top = await game.settings.get(CONST.MODULE_NAME, "top");
+        const left = await game.settings.get(CONST.MODULE_NAME, "left");
+        const directionColumn = await game.settings.get(CONST.MODULE_NAME, "columnDirection");
 
         this._element.get(0).style.setProperty("--dice-color", color);
         this._element.get(0).style.setProperty("top", top + "px");
@@ -123,8 +124,8 @@ export class FastDiceBox extends Application {
             //onmousemove attribute fires when the pointer is moving while it is over an element.
             document.onmousemove = null;
 
-            await game.settings.set("fast-dice-box", "top", Number.parseInt(element.style.top.replace("px", "")));
-            await game.settings.set("fast-dice-box", "left", Number.parseInt(element.style.left.replace("px", "")));
+            await game.settings.set(CONST.MODULE_NAME, "top", Number.parseInt(element.style.top.replace("px", "")));
+            await game.settings.set(CONST.MODULE_NAME, "left", Number.parseInt(element.style.left.replace("px", "")));
 
             element.classList.remove("drag");
         };
@@ -132,13 +133,13 @@ export class FastDiceBox extends Application {
         const dragMouseMove = (event) => {
 
             event.preventDefault();
-//clientX property returns the horizontal coordinate of the mouse pointer
+            //clientX property returns the horizontal coordinate of the mouse pointer
             pos1 = pos3 - event.clientX;
-//clientY property returns the vertical coordinate of the mouse pointer
+            //clientY property returns the vertical coordinate of the mouse pointer
             pos2 = pos4 - event.clientY;
             pos3 = event.clientX;
             pos4 = event.clientY;
-//offsetTop property returns the top position relative to the parent
+            //offsetTop property returns the top position relative to the parent
             element.style.top = `${element.offsetTop - pos2}px`;
             element.style.left = `${element.offsetLeft - pos1}px`;
         };
