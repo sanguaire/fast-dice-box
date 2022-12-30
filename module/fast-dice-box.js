@@ -39,6 +39,7 @@ export class FastDiceBox extends Application {
         this._element.get(0).classList.add(directionColumn ? "column" : "row");
         this._element.get(0).classList.remove(directionColumn ? "row" : "column");
 
+        return this;
     }
 
     activateListeners(html) {
