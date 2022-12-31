@@ -25,20 +25,28 @@ export class FastDiceBox extends Application {
         return super.getData(options);
     }
 
-    async render(force = false, options = {}) {
-        if (!this.rendered) await super._render(force, options);
+    render(force = false, options = {}) {
+        const e = this._element;
+        const that = this;
+        const f = force;
+        const o = options;
 
-        const color = await game.settings.get(CONST.MODULE_NAME, "diceColor");
-        const top = await game.settings.get(CONST.MODULE_NAME, "top");
-        const left = await game.settings.get(CONST.MODULE_NAME, "left");
-        const directionColumn = await game.settings.get(CONST.MODULE_NAME, "columnDirection");
+        const initElement = function (element) {
+            const color =  game.settings.get(CONST.MODULE_NAME, "diceColor");
+            const top =  game.settings.get(CONST.MODULE_NAME, "top");
+            const left =  game.settings.get(CONST.MODULE_NAME, "left");
+            const directionColumn =  game.settings.get(CONST.MODULE_NAME, "columnDirection");
 
-        this._element.get(0).style.setProperty("--dice-color", color);
-        this._element.get(0).style.setProperty("top", top + "px");
-        this._element.get(0).style.setProperty("left", left + "px");
+            element.get(0).style.setProperty("--dice-color", color);
+            element.get(0).style.setProperty("top", top + "px");
+            element.get(0).style.setProperty("left", left + "px");
 
-        this._element.get(0).classList.add(directionColumn ? "column" : "row");
-        this._element.get(0).classList.remove(directionColumn ? "row" : "column");
+            element.get(0).classList.add(directionColumn ? "column" : "row");
+            element.get(0).classList.remove(directionColumn ? "row" : "column");
+        };
+
+        if (!this.rendered) super._render(force, options).then(()=>that.render(f, o));
+        else initElement(e);
 
         return this;
     }

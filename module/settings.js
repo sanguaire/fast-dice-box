@@ -1,4 +1,6 @@
 import {CONST} from "./CONST.js";
+import {DiceConfig} from "./dice-config.js";
+import {debounce} from "./utils.js";
 
 export const registerSettings = () => {
     game.settings.register(CONST.MODULE_NAME, "diceColor", {
@@ -8,7 +10,7 @@ export const registerSettings = () => {
         type: String,
         default: "#ff0000",
         config: true,
-        onChange: async () => await ui.fastDiceBox.render(true)
+        onChange: async () => debounce(await ui.fastDiceBox.render(true), 100)
     });
 
     game.settings.register(CONST.MODULE_NAME, "notification", {
@@ -26,7 +28,6 @@ export const registerSettings = () => {
         type: Number,
         default: 100,
         config: true,
-        onChange: async () => await ui.fastDiceBox.render(true)
     });
 
     game.settings.register(CONST.MODULE_NAME, "left", {
@@ -35,7 +36,6 @@ export const registerSettings = () => {
         type: Number,
         default: 100,
         config: true,
-        onChange: async () => await ui.fastDiceBox.render(true)
     });
 
     game.settings.register(CONST.MODULE_NAME, "columnDirection", {
@@ -45,6 +45,24 @@ export const registerSettings = () => {
         type: Boolean,
         default: true,
         config: true,
-        onChange: async () => await ui.fastDiceBox.render(true)
+        onChange: async () => debounce(await ui.fastDiceBox.render(true), 100)
+    });
+
+    game.settings.register(CONST.MODULE_NAME, "dice-configuration", {
+        name: "dice-configuration",
+        scope: "world",
+        type: Object,
+        default: CONST.DEFAULT_DICE,
+        config: false,
+        onChange: async () => debounce(await ui.fastDiceBox.render(true), 100)
+    });
+
+    game.settings.registerMenu(CONST.MODULE_NAME, "dice-configuration-menu", {
+        name: "My Settings Submenu",
+        label: "Settings Menu Label",
+        hint: "A description of what will occur in the submenu dialog.",
+        icon: "fas fa-bars",
+       type: DiceConfig,
+       restricted: true
     });
 }
