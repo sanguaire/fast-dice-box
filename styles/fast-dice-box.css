@@ -13,18 +13,24 @@ a.inline-roll {
   pointer-events: all;
   display: flex;
   height: fit-content;
-  flex-direction: column;
   row-gap: 0.8em;
-  align-self: flex-end;
   /*noinspection CssUnresolvedCustomProperty*/
   z-index: calc(var(--z-index-ui) + 10);
-  margin-right: 1em;
   border-radius: 5px;
   padding: 5px;
   background-color: var(--fdb-background-color);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: absolute;
-  top: 5px;
+}
+
+#fast-dice-box.row,
+#fast-dice-box.row > .content {
+  flex-direction: row;
+}
+
+#fast-dice-box.column,
+#fast-dice-box.column > .content {
+  flex-direction: column;
 }
 
 #fast-dice-box .roll{
@@ -43,7 +49,18 @@ a.inline-roll {
   transition: all .2s ease-in-out;
 }
 
-#fast-dice-box .roll:before {
+#fast-dice-box .roll > .img {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: var(--dice-color);
+  width: 48px;
+  height: 48px;
+}
+
+/*#fast-dice-box .roll:before {
   content: "";
   position: absolute;
   top: 0;
@@ -54,7 +71,7 @@ a.inline-roll {
   height: 48px;
   -webkit-mask-position: 50% 50%;
   -webkit-mask-size: cover;
-}
+}*/
 
 #fast-dice-box .roll:hover,
 #fast-dice-box .collapsible:hover {
@@ -122,11 +139,15 @@ a.inline-roll {
   width: 48px;
   height: 48px;
   transition: all .2s ease-in-out;
-
 }
 
-#fast-dice-box .collapsible.active {
+#fast-dice-box.column .collapsible.active {
   border-bottom: 1px solid white;
+}
+
+#fast-dice-box.row .collapsible.active {
+  border-right: 1px solid white;
+  margin-right: 0.2em;
 }
 
 #fast-dice-box .collapsible:before {
@@ -147,8 +168,8 @@ a.inline-roll {
   display: none;
   overflow: visible;
   height: fit-content;
-  flex-direction: column;
   row-gap: 0.8em;
+  column-gap: 0.8em;
 }
 
 div#toast-container {
@@ -166,8 +187,8 @@ div#toast-container {
 }
 
 .toast-top-right {
-  top: 0px !important;
-  right: 80px !important;
+  top: 15px !important;
+  right: 15px !important;
 }
 
 .toast-message a.message-delete {
@@ -182,4 +203,25 @@ div#toast-container {
   padding: 15px !important;
 }
 
+#drag {
+  color: whitesmoke;
+  text-shadow: 1px 1px 2px var(--color-shadow-dark);
+}
 
+.config-table {
+  display: grid;
+  grid-template-columns: 40px 40px 3fr 1fr 2fr 2fr;
+  grid-template-rows: auto;
+  column-gap: 0.2em;
+}
+
+.img-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.img-selector > img {
+  height: 32px;
+  width: 32px;
+}

@@ -1,38 +1,68 @@
-export const initializeSettings = () => {
-    game.settings.register("fast-dice-box", "diceColor", {
+import {CONST} from "./CONST.js";
+import {DiceConfig} from "./dice-config.js";
+import {debounce} from "./utils.js";
+
+export const registerSettings = () => {
+    game.settings.register(CONST.MODULE_NAME, "diceColor", {
         name: game.i18n.localize("fdb.dice-color"),
         hint: game.i18n.localize("fdb.dice-color-hint"),
-        scope: "user",
+        scope: "client",
         type: String,
         default: "#ff0000",
         config: true,
-        onChange: async () => await ui.fastDiceBox.render(true)
+        onChange: async () => debounce(await ui.fastDiceBox.render(true), 100)
     });
 
-    game.settings.register("fast-dice-box", "notification", {
+    game.settings.register(CONST.MODULE_NAME, "notification", {
         name: game.i18n.localize("fdb.notification"),
         hint: game.i18n.localize("fdb.notification-hint"),
-        scope: "user",
+        scope: "client",
         type: Boolean,
         default: true,
         config: true
     });
 
-    game.settings.register("fast-dice-box", "notification-auto-fade-out", {
-        name: game.i18n.localize("fdb.notification-auto-fade-out"),
-        hint: '',
-        scope: "user",
+    game.settings.register(CONST.MODULE_NAME, "top", {
+        name: game.i18n.localize("fdb.top"),
+        scope: "client",
+        type: Number,
+        default: 100,
+        config: true
+    });
+
+    game.settings.register(CONST.MODULE_NAME, "left", {
+        name: game.i18n.localize("fdb.left"),
+        scope: "client",
+        type: Number,
+        default: 100,
+        config: true
+    });
+
+    game.settings.register(CONST.MODULE_NAME, "columnDirection", {
+        name: game.i18n.localize("fdb.column-direction"),
+        hint: game.i18n.localize("fdb.column-direction-hint"),
+        scope: "client",
         type: Boolean,
         default: true,
-        config: true
-    })
+        config: true,
+        onChange: async () => debounce(await ui.fastDiceBox.render(true), 100)
+    });
 
-    game.settings.register("fast-dice-box", "notification-fade-out-timeout", {
-        name: game.i18n.localize("fdb.notification-fade-out-timeout"),
-        hint: '',
-        scope: "user",
-        type: Number,
-        default: 5000,
-        config: true
-    })
+    game.settings.register(CONST.MODULE_NAME, "dice-configuration", {
+        name: "dice-configuration",
+        scope: "world",
+        type: Object,
+        default: CONST.DEFAULT_DICE,
+        config: false,
+        requiresReload: true
+    });
+
+    game.settings.registerMenu(CONST.MODULE_NAME, "dice-configuration-menu", {
+        name: game.i18n.localize("fdb.config.menu.name"),
+        label: game.i18n.localize("fdb.config.menu.label"),
+        hint: game.i18n.localize("fdb.config.menu.hint"),
+        icon: "fa-solid fa-dice",
+       type: DiceConfig,
+       restricted: true
+    });
 }

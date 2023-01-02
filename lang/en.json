@@ -1,5 +1,20 @@
 {
   "fdb": {
+    "column-direction": "Direction as column",
+    "column-direction-hint": "Buttons are aligned as column",
+    "config": {
+      "menu": {
+        "element-label": "Label",
+        "formula": "Formula",
+        "hint": "Opens the configuration of dice slots",
+        "image": "Image",
+        "label": "Configure",
+        "localization": "Localization key",
+        "name": "Configure dice",
+        "save": "Save",
+        "slot": "Slot"
+      }
+    },
     "dice": {
       "d10": "d10",
       "d100": "d100",
@@ -13,9 +28,11 @@
     },
     "dice-color": "Color of dice",
     "dice-color-hint": "Sets the dice color for the FastDiceBox.",
+    "left": "Position Left",
     "modifier": "Modifier",
     "no-of-dice": "No of dice",
     "notification": "Notification",
-    "notification-hint": "Show additional notification on roll."
+    "notification-hint": "Show additional notification on roll.",
+    "top": "Position top"
   }
 }

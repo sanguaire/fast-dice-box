@@ -1,62 +1,85 @@
-import {newDiceRoll, initializeToastr} from "./notification.js";
-import {initializeSettings} from "./settings.js";
+import {newDiceRoll} from "./notification.js";
+import {CONST} from "./CONST.js";
 
-let socket;
-const msgIds = {};
-
-async function preloadTemplates() {
-    const templatePaths = [
-        'modules/fast-dice-box/templates/apps/fast-dice-box.html',
-    ];
-
-    return loadTemplates(templatePaths);
-}
-
-class FastDiceBox extends Application {
+export class FastDiceBox extends Application {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            width: 100,
-            left: 50,
-            id: "fast-dice-box",
-            template: "modules/fast-dice-box/templates/apps/fast-dice-box.html",
+            left: 0,
+            top: 0,
+            id: CONST.MODULE_NAME,
+            template: `modules/${CONST.MODULE_NAME}/templates/apps/fast-dice-box.html`,
             popOut: false
         });
     }
 
-    _injectHTML(html) {
-        $("#ui-top")
+    async _injectHTML(html) {
+        $("#interface")
             .after(html);
 
         this._element = html;
+
         html.hide().fadeIn(200);
     }
 
     getData(options = {}) {
-        return super.getData(options);
+        const diceSettings = game.settings.get(CONST.MODULE_NAME, "dice-configuration");
+        const diceConfig = [];
+
+        for(const [key, value] of Object.entries(diceSettings)) {
+            if(!value.active) {
+                continue;
+            }
+
+            if(value.localization !== "") {
+                value.label = game.i18n.localize(value.localization);
+            }
+            diceConfig.push(value);
+        }
+
+
+        return foundry.utils.mergeObject(super.getData(options),{diceConfig});
     }
 
-    async render(force = false, options = {}) {
-        if (!this.rendered) await super._render(force, options);
+    render(force = false, options = {}) {
+        const e = this._element;
+        const that = this;
+        const f = force;
+        const o = options;
 
-        const color = game.settings.get("fast-dice-box", "diceColor");
+        const initElement = function (element) {
+            const color =  game.settings.get(CONST.MODULE_NAME, "diceColor");
+            const top =  game.settings.get(CONST.MODULE_NAME, "top");
+            const left =  game.settings.get(CONST.MODULE_NAME, "left");
+            const directionColumn =  game.settings.get(CONST.MODULE_NAME, "columnDirection");
 
-        this._element.get(0).style.setProperty("--dice-color", color);
+            element.get(0).style.setProperty("--dice-color", color);
+            element.get(0).style.setProperty("top", top + "px");
+            element.get(0).style.setProperty("left", left + "px");
 
+            element.get(0).classList.add(directionColumn ? "column" : "row");
+            element.get(0).classList.remove(directionColumn ? "row" : "column");
+        };
+
+        if (!this.rendered) super._render(force, options).then(()=>that.render(f, o));
+        else initElement(e);
+
+        return this;
     }
 
     activateListeners(html) {
         html.find(".collapsible").mousedown(this.onCollapse);
         html.find(".roll").mousedown(this.onFastRoll);
 
+        this.dragElement(html.get(0), html.find("#drag").get(0));
     }
 
     async onCollapse(ev) {
-        const btn = ev.target;
+        const btn =  ev.target;
         btn.classList.toggle("active");
 
         const content = btn.nextElementSibling;
 
-        if (content.style.display === "flex") {
+        if (content.style.display === "flex"){
             content.style.display = "none";
         } else {
             content.style.display = "flex";
@@ -95,7 +118,7 @@ class FastDiceBox extends Application {
             noOfDice = result.noOfDice;
         }
 
-        if (/^\d/.test(target.dataset.roll)) noOfDice = '';
+        if(/^\d/.test(target.dataset.roll)) noOfDice = '';
 
         const formula = modifier === 0
             ? `${noOfDice}${target.dataset.roll}`
@@ -110,57 +133,54 @@ class FastDiceBox extends Application {
             rollMode: game.settings.get("core", "rollMode")
         });
 
-        if (game.dice3d) {
-            msgIds[message.id] = message;
-        } else {
-            socket.executeForEveryone("newDiceRoll", message);
-        }
-
+        await game["fast-dice-box"].socket.executeForEveryone("newDiceRoll", message);
     }
+
+    dragElement = (element, dragzone) => {
+        let pos1 = 0,
+            pos2 = 0,
+            pos3 = 0,
+            pos4 = 0;
+        //MouseUp occurs when the user releases the mouse button
+        const dragMouseUp = async () => {
+            document.onmouseup = null;
+            //onmousemove attribute fires when the pointer is moving while it is over an element.
+            document.onmousemove = null;
+
+            await game.settings.set(CONST.MODULE_NAME, "top", Number.parseInt(element.style.top.replace("px", "")));
+            await game.settings.set(CONST.MODULE_NAME, "left", Number.parseInt(element.style.left.replace("px", "")));
+
+            element.classList.remove("drag");
+        };
+
+        const dragMouseMove = (event) => {
+
+            event.preventDefault();
+            //clientX property returns the horizontal coordinate of the mouse pointer
+            pos1 = pos3 - event.clientX;
+            //clientY property returns the vertical coordinate of the mouse pointer
+            pos2 = pos4 - event.clientY;
+            pos3 = event.clientX;
+            pos4 = event.clientY;
+            //offsetTop property returns the top position relative to the parent
+            element.style.top = `${element.offsetTop - pos2}px`;
+            element.style.left = `${element.offsetLeft - pos1}px`;
+        };
+
+        const dragMouseDown = (event) => {
+            event.preventDefault();
+
+            pos3 = event.clientX;
+            pos4 = event.clientY;
+
+            element.classList.add("drag");
+
+            document.onmouseup = dragMouseUp;
+            document.onmousemove = dragMouseMove;
+        };
+
+        dragzone.onmousedown = dragMouseDown;
+    };
 }
 
-Hooks.once('diceSoNiceReady', () => {
-    Hooks.on('diceSoNiceRollComplete', (messageId) => {
-        console.log(`fast-dice-box: ${messageId}`);
-        if (msgIds[messageId]) {
-            socket.executeForEveryone("newDiceRoll", msgIds[messageId]);
-            delete msgIds[messageId];
-        }
-    });
-});
 
-// Initialize module
-Hooks.once('init', async () => {
-    console.log('fast-dice-box | Initializing');
-
-    initializeSettings();
-
-    // Preload Handlebars templates
-    await preloadTemplates();
-
-    // Register custom sheets (if any)
-    CONFIG.ui.fastDiceBox = FastDiceBox;
-
-    initializeToastr();
-});
-
-// When ready
-Hooks.once('ready', async () => {
-    await ui.fastDiceBox.render(true);
-});
-
-Hooks.on("renderSettingsConfig", (app, html, data) => {
-    let name, colour;
-    name = `fast-dice-box.diceColor`;
-    colour = game.settings.get("fast-dice-box", "diceColor");
-    $("<input>")
-        .attr("type", "color")
-        .attr("data-edit", name)
-        .val(colour)
-        .insertAfter($(`input[name="${name}"]`, html).addClass("color"));
-});
-
-Hooks.once("socketlib.ready", () => {
-    socket = socketlib.registerModule("fast-dice-box");
-    socket.register("newDiceRoll", newDiceRoll);
-});
