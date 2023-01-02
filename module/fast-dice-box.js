@@ -2,6 +2,9 @@ import {newDiceRoll} from "./notification.js";
 import {CONST} from "./CONST.js";
 
 export class FastDiceBox extends Application {
+
+    msgIds = {};
+
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             left: 0,
@@ -133,7 +136,11 @@ export class FastDiceBox extends Application {
             rollMode: game.settings.get("core", "rollMode")
         });
 
-        await game["fast-dice-box"].socket.executeForEveryone("newDiceRoll", message);
+        if(game.dice3d) {
+            ui.fastDiceBox.msgIds[message.id] = message
+        } else {
+            await game["fast-dice-box"].socket.executeForEveryone("newDiceRoll", message);
+        }
     }
 
     dragElement = (element, dragzone) => {
