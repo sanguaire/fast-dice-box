@@ -50,6 +50,7 @@ export const registerHookHandlers = () =>{
 async function preloadTemplates() {
     const templatePaths = [
         `modules/${CONST.MODULE_NAME}/templates/apps/fast-dice-box.html`,
+        `modules/${CONST.MODULE_NAME}/templates/apps/dice-configuration.html`,
     ];
 
     return loadTemplates(templatePaths);
