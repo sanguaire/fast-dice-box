@@ -2,6 +2,19 @@
   "fdb": {
     "column-direction": "Richtung als Spalte",
     "column-direction-hint": "Richte die Buttons als Spalte aus",
+    "config": {
+      "menu": {
+        "element-label": "Beschriftung",
+        "formula": "Formel",
+        "hint": "Öffnet die Konfiguration der Würfel-Slots",
+        "image": "Bild",
+        "label": "Konfigurieren",
+        "localization": "Übersetzungsschlüssel",
+        "name": "Würfel konfigurieren",
+        "save": "Speichern",
+        "slot": "Slot"
+      }
+    },
     "dice": {
       "d10": "W10",
       "d100": "W100",

@@ -1,13 +1,14 @@
 import {registerSettings} from "./settings.js";
 import {initializeToastr, newDiceRoll} from "./notification.js";
 import {FastDiceBox} from "./fast-dice-box.js";
+import {CONST} from "./CONST.js";
 
 let socket;
 
 export const registerHookHandlers = () =>{
     Hooks.once('init',
         async () => {
-            console.log('fast-dice-box | Initializing');
+            console.log(`${CONST.MODULE_NAME} | Initializing`);
 
             registerSettings();
 
@@ -26,7 +27,7 @@ export const registerHookHandlers = () =>{
 
     Hooks.on("renderSettingsConfig", (app, html, data) => {
         let name, colour;
-        name = `fast-dice-box.diceColor`;
+        name = `${CONST.MODULE_NAME}.diceColor`;
         colour = game.settings.get("fast-dice-box", "diceColor");
         $("<input>")
             .attr("type", "color")
@@ -36,10 +37,10 @@ export const registerHookHandlers = () =>{
     });
 
     Hooks.once("socketlib.ready", () => {
-        socket = socketlib.registerModule("fast-dice-box");
+        socket = socketlib.registerModule(CONST.MODULE_NAME);
         socket.register("newDiceRoll", newDiceRoll);
 
-        game["fast-dice-box"] = {
+        game[CONST.MODULE_NAME] = {
             socket: socket
         }
 
@@ -48,7 +49,8 @@ export const registerHookHandlers = () =>{
 
 async function preloadTemplates() {
     const templatePaths = [
-        'modules/fast-dice-box/templates/apps/fast-dice-box.html',
+        `modules/${CONST.MODULE_NAME}/templates/apps/fast-dice-box.html`,
+        `modules/${CONST.MODULE_NAME}/templates/apps/dice-configuration.html`,
     ];
 
     return loadTemplates(templatePaths);
