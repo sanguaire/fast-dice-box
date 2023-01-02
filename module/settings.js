@@ -27,7 +27,7 @@ export const registerSettings = () => {
         scope: "client",
         type: Number,
         default: 100,
-        config: true,
+        config: true
     });
 
     game.settings.register(CONST.MODULE_NAME, "left", {
@@ -35,7 +35,7 @@ export const registerSettings = () => {
         scope: "client",
         type: Number,
         default: 100,
-        config: true,
+        config: true
     });
 
     game.settings.register(CONST.MODULE_NAME, "columnDirection", {
@@ -54,14 +54,14 @@ export const registerSettings = () => {
         type: Object,
         default: CONST.DEFAULT_DICE,
         config: false,
-        onChange: async () => debounce(await ui.fastDiceBox.render(true), 100)
+        requiresReload: true
     });
 
     game.settings.registerMenu(CONST.MODULE_NAME, "dice-configuration-menu", {
-        name: "My Settings Submenu",
-        label: "Settings Menu Label",
-        hint: "A description of what will occur in the submenu dialog.",
-        icon: "fas fa-bars",
+        name: game.i18n.localize("fdb.config.menu.name"),
+        label: game.i18n.localize("fdb.config.menu.label"),
+        hint: game.i18n.localize("fdb.config.menu.hint"),
+        icon: "fa-solid fa-dice",
        type: DiceConfig,
        restricted: true
     });

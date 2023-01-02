@@ -1,4 +1,23 @@
 {{log this}}
 <form>
-    <p>Dice Configuration</p>
+    <div class="config-table">
+        <p style="grid-column: span 2">{{localize "fdb.config.menu.slot"}}</p>
+        <p>{{localize "fdb.config.menu.image"}}</p>
+        <p>{{localize "fdb.config.menu.element-label"}}</p>
+        <p>{{localize "fdb.config.menu.localization"}}</p>
+        <p>{{localize "fdb.config.menu.formula"}}</p>
+        {{#each diceConfig}}
+            <input type="checkbox" {{checked this.active}} name="active">
+            <p>{{this.slot}}:</p>
+            <div class="img-selector">
+                <img src="{{this.img}}" class="img"/>
+                <input type="text" name="img.{{this.slot}}" class="img-path" value="{{this.img}}">
+                {{filePicker type="image" target=(concat "img." this.slot)}}
+            </div>
+            <input type="text" value="{{this.label}}" name="label">
+            <input type="text" value="{{this.localization}}" name="localization">
+            <input type="text" value="{{this.formula}}" name="formula">
+        {{/each}}
+    </div>
+    <button type="submit"><i class="fa-solid fa-floppy-disk"></i>{{localize "fdb.config.menu.save"}} </button>
 </form>

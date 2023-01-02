@@ -22,7 +22,22 @@ export class FastDiceBox extends Application {
     }
 
     getData(options = {}) {
-        return super.getData(options);
+        const diceSettings = game.settings.get(CONST.MODULE_NAME, "dice-configuration");
+        const diceConfig = [];
+
+        for(const [key, value] of Object.entries(diceSettings)) {
+            if(!value.active) {
+                continue;
+            }
+
+            if(value.localization !== "") {
+                value.label = game.i18n.localize(value.localization);
+            }
+            diceConfig.push(value);
+        }
+
+
+        return foundry.utils.mergeObject(super.getData(options),{diceConfig});
     }
 
     render(force = false, options = {}) {
