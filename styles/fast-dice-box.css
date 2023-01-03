@@ -1,5 +1,7 @@
 #fast-dice-box{
   --fdb-background-color: rgba(255, 255, 255, 0.3);
+  --fdb-icon-size: 48px;
+  --fdb-font-size: var(--font-size-18);
   pointer-events: all;
   display: flex;
   height: fit-content;
@@ -26,10 +28,9 @@
 #fast-dice-box .roll{
   position: relative;
   z-index: 0;
-  font-size: var(--font-size-18);
   font-weight: bold;
-  width: 48px;
-  height: 48px;
+  width: var(--fdb-icon-size);
+  height: var(--fdb-icon-size);
   border: none;
   pointer-events: all;
   display: flex;
@@ -39,6 +40,10 @@
   transition: all .2s ease-in-out;
 }
 
+#fast-dice-box .roll > span {
+  font-size: var(--fdb-font-size);
+}
+
 #fast-dice-box .roll > .img {
   content: "";
   position: absolute;
@@ -46,8 +51,8 @@
   left: 0;
   z-index: -1;
   background: var(--dice-color);
-  width: 48px;
-  height: 48px;
+  width: var(--fdb-icon-size);
+  height: var(--fdb-icon-size);
 }
 
 #fast-dice-box .roll:hover,
@@ -79,8 +84,8 @@
   position: relative;
   z-index: 0;
   pointer-events: all;
-  width: 48px;
-  height: 48px;
+  width: var(--fdb-icon-size);
+  height: var(--fdb-icon-size);
   transition: all .2s ease-in-out;
   margin-left: 0.5em;
 }
@@ -101,8 +106,8 @@
   left: 0;
   z-index: -1;
   background: var(--dice-color);
-  width: 48px;
-  height: 48px;
+  width: var(--fdb-icon-size);
+  height: var(--fdb-icon-size);
   -webkit-mask-position: 50% 50%;
   -webkit-mask-size: cover;
   -webkit-mask-image: url("../assets/dice-cup.svg");

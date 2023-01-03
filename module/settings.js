@@ -13,6 +13,21 @@ export const registerSettings = () => {
         onChange: async () => debounce(await ui.fastDiceBox.render(true), 100)
     });
 
+    game.settings.register(CONST.MODULE_NAME, "iconSize", {
+        name: game.i18n.localize("fdb.icon-size"),
+        hint: game.i18n.localize("fdb.icon-size-hint"),
+        scope: "client",
+        type: Number,
+        default: 48,
+        range: {
+          min: 16,
+          max: 256,
+          step: 1
+        },
+        config: true,
+        onChange: async () => debounce(await ui.fastDiceBox.render(true), 100)
+    });
+
     game.settings.register(CONST.MODULE_NAME, "notification", {
         name: game.i18n.localize("fdb.notification"),
         hint: game.i18n.localize("fdb.notification-hint"),

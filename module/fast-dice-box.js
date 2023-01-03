@@ -54,8 +54,13 @@ export class FastDiceBox extends Application {
             const top =  game.settings.get(CONST.MODULE_NAME, "top");
             const left =  game.settings.get(CONST.MODULE_NAME, "left");
             const directionColumn =  game.settings.get(CONST.MODULE_NAME, "columnDirection");
+            const iconSize = game.settings.get(CONST.MODULE_NAME, "iconSize");
+
+            const fontSize = (iconSize / 48) * 18;
 
             element.get(0).style.setProperty("--dice-color", color);
+            element.get(0).style.setProperty("--fdb-icon-size", iconSize + "px");
+            element.get(0).style.setProperty("--fdb-font-size", fontSize + "px");
             element.get(0).style.setProperty("top", top + "px");
             element.get(0).style.setProperty("left", left + "px");
 

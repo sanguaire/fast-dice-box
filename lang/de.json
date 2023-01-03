@@ -28,6 +28,8 @@
     },
     "dice-color": "Würfelfarbe",
     "dice-color-hint": "Legt die Würfelfarbe in der FastDiceBox fest.",
+    "icon-size": "Symbolgröße",
+    "icon-size-hint": "Die größe der Würfelbuttons in Pixeln",
     "left": "Position links",
     "modifier": "Modifikator",
     "no-of-dice": "Würfelanzahl",
