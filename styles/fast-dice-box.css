@@ -1,13 +1,3 @@
-/* ---------------------------- */
-/*             Sass             */
-/* This is your Sass entry file */
-/* ---------------------------- */
-/*a.entity-link,
-a.content-link,
-a.inline-roll {
-  line-height: 1.8em;
-}*/
-
 #fast-dice-box{
   --fdb-background-color: rgba(255, 255, 255, 0.3);
   pointer-events: all;
@@ -60,55 +50,9 @@ a.inline-roll {
   height: 48px;
 }
 
-/*#fast-dice-box .roll:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  background: var(--dice-color);
-  width: 48px;
-  height: 48px;
-  -webkit-mask-position: 50% 50%;
-  -webkit-mask-size: cover;
-}*/
-
 #fast-dice-box .roll:hover,
 #fast-dice-box .collapsible:hover {
   transform: scale(1.2);
-}
-
-#fast-dice-box .d100:before {
-  -webkit-mask-image:  url(../assets/d100-grey.svg);
-                 }
-
-#fast-dice-box .two-d6:before {
-  -webkit-mask-image:  url(../assets/two-d6-grey.svg);
-}
-
-#fast-dice-box .d20:before {
-  -webkit-mask-image: url(../assets/d20-grey.svg);
-
-}
-
-#fast-dice-box .d12:before {
-  -webkit-mask-image:  url(../assets/d12-grey.svg);
-}
-
-#fast-dice-box .d10:before {
-  -webkit-mask-image:  url(../assets/d10-grey.svg);
-}
-
-#fast-dice-box .d8:before {
-  -webkit-mask-image:  url(../assets/d8-grey.svg);
-}
-
-#fast-dice-box .d6:before {
-  -webkit-mask-image:  url(../assets/d6-grey.svg);
-}
-
-#fast-dice-box .d4:before {
-  -webkit-mask-image:  url(../assets/d4-grey.svg);
 }
 
 .fast-dice-box form {
@@ -132,7 +76,6 @@ a.inline-roll {
 }
 
 #fast-dice-box .collapsible {
-  /*background: url("../assets/dice-cup.svg");*/
   position: relative;
   z-index: 0;
   pointer-events: all;
@@ -147,7 +90,7 @@ a.inline-roll {
 
 #fast-dice-box.row .collapsible.active {
   border-right: 1px solid white;
-  margin-right: 0.2em;
+  margin-right: 1em;
 }
 
 #fast-dice-box .collapsible:before {
