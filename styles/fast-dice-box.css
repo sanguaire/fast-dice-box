@@ -16,12 +16,14 @@
 }
 
 #fast-dice-box.row,
-#fast-dice-box.row > .content {
+#fast-dice-box.row > .content,
+#fast-dice-box.column > .controls {
   flex-direction: row;
 }
 
 #fast-dice-box.column,
-#fast-dice-box.column > .content {
+#fast-dice-box.column > .content,
+#fast-dice-box.row > .controls {
   flex-direction: column;
 }
 
@@ -153,8 +155,14 @@ div#toast-container {
 }
 
 #drag {
+
+}
+
+#fast-dice-box .controls {
   color: whitesmoke;
   text-shadow: 1px 1px 2px var(--color-shadow-dark);
+  display: flex;
+  justify-content: space-between;
 }
 
 .config-table {

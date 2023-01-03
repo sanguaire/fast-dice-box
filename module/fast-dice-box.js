@@ -78,6 +78,8 @@ export class FastDiceBox extends Application {
         html.find(".collapsible").mousedown(this.onCollapse);
         html.find(".roll").mousedown(this.onFastRoll);
 
+        html.find("#orientation").mousedown(this.onOrientationChange)
+
         this.dragElement(html.get(0), html.find("#drag").get(0));
     }
 
@@ -193,6 +195,12 @@ export class FastDiceBox extends Application {
 
         dragzone.onmousedown = dragMouseDown;
     };
+
+    async onOrientationChange() {
+        const currentOrientation = game.settings.get(CONST.MODULE_NAME, "columnDirection");
+
+        await game.settings.set(CONST.MODULE_NAME, "columnDirection", !currentOrientation);
+    }
 }
 
 
