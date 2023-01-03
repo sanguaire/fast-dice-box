@@ -133,7 +133,12 @@ div#toast-container {
 }
 
 .toast-info {
-  background-color: rgb(253 255 227 / 80%) !important;
+  background-color: rgb(253 255 227 / 85%) !important;
+  color: black !important;
+}
+
+.toast-info:hover {
+  background-color: rgb(253 255 227 / 100%) !important;
   color: black !important;
 }
 
