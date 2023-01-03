@@ -28,6 +28,8 @@
     },
     "dice-color": "Color of dice",
     "dice-color-hint": "Sets the dice color for the FastDiceBox.",
+    "icon-size": "Icon size",
+    "icon-size-hint": "The size of the dice buttons in pixels",
     "left": "Position Left",
     "modifier": "Modifier",
     "no-of-dice": "No of dice",

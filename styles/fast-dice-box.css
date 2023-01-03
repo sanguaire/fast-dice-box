@@ -1,15 +1,7 @@
-/* ---------------------------- */
-/*             Sass             */
-/* This is your Sass entry file */
-/* ---------------------------- */
-/*a.entity-link,
-a.content-link,
-a.inline-roll {
-  line-height: 1.8em;
-}*/
-
 #fast-dice-box{
   --fdb-background-color: rgba(255, 255, 255, 0.3);
+  --fdb-icon-size: 48px;
+  --fdb-font-size: var(--font-size-18);
   pointer-events: all;
   display: flex;
   height: fit-content;
@@ -24,22 +16,23 @@ a.inline-roll {
 }
 
 #fast-dice-box.row,
-#fast-dice-box.row > .content {
+#fast-dice-box.row > .content,
+#fast-dice-box.column > .controls {
   flex-direction: row;
 }
 
 #fast-dice-box.column,
-#fast-dice-box.column > .content {
+#fast-dice-box.column > .content,
+#fast-dice-box.row > .controls {
   flex-direction: column;
 }
 
 #fast-dice-box .roll{
   position: relative;
   z-index: 0;
-  font-size: var(--font-size-18);
   font-weight: bold;
-  width: 48px;
-  height: 48px;
+  width: var(--fdb-icon-size);
+  height: var(--fdb-icon-size);
   border: none;
   pointer-events: all;
   display: flex;
@@ -49,6 +42,10 @@ a.inline-roll {
   transition: all .2s ease-in-out;
 }
 
+#fast-dice-box .roll > span {
+  font-size: var(--fdb-font-size);
+}
+
 #fast-dice-box .roll > .img {
   content: "";
   position: absolute;
@@ -56,59 +53,13 @@ a.inline-roll {
   left: 0;
   z-index: -1;
   background: var(--dice-color);
-  width: 48px;
-  height: 48px;
+  width: var(--fdb-icon-size);
+  height: var(--fdb-icon-size);
 }
-
-/*#fast-dice-box .roll:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  background: var(--dice-color);
-  width: 48px;
-  height: 48px;
-  -webkit-mask-position: 50% 50%;
-  -webkit-mask-size: cover;
-}*/
 
 #fast-dice-box .roll:hover,
 #fast-dice-box .collapsible:hover {
   transform: scale(1.2);
-}
-
-#fast-dice-box .d100:before {
-  -webkit-mask-image:  url(../assets/d100-grey.svg);
-                 }
-
-#fast-dice-box .two-d6:before {
-  -webkit-mask-image:  url(../assets/two-d6-grey.svg);
-}
-
-#fast-dice-box .d20:before {
-  -webkit-mask-image: url(../assets/d20-grey.svg);
-
-}
-
-#fast-dice-box .d12:before {
-  -webkit-mask-image:  url(../assets/d12-grey.svg);
-}
-
-#fast-dice-box .d10:before {
-  -webkit-mask-image:  url(../assets/d10-grey.svg);
-}
-
-#fast-dice-box .d8:before {
-  -webkit-mask-image:  url(../assets/d8-grey.svg);
-}
-
-#fast-dice-box .d6:before {
-  -webkit-mask-image:  url(../assets/d6-grey.svg);
-}
-
-#fast-dice-box .d4:before {
-  -webkit-mask-image:  url(../assets/d4-grey.svg);
 }
 
 .fast-dice-box form {
@@ -132,13 +83,13 @@ a.inline-roll {
 }
 
 #fast-dice-box .collapsible {
-  /*background: url("../assets/dice-cup.svg");*/
   position: relative;
   z-index: 0;
   pointer-events: all;
-  width: 48px;
-  height: 48px;
+  width: var(--fdb-icon-size);
+  height: var(--fdb-icon-size);
   transition: all .2s ease-in-out;
+  margin-left: 0.5em;
 }
 
 #fast-dice-box.column .collapsible.active {
@@ -147,7 +98,7 @@ a.inline-roll {
 
 #fast-dice-box.row .collapsible.active {
   border-right: 1px solid white;
-  margin-right: 0.2em;
+  margin-right: 1em;
 }
 
 #fast-dice-box .collapsible:before {
@@ -157,8 +108,8 @@ a.inline-roll {
   left: 0;
   z-index: -1;
   background: var(--dice-color);
-  width: 48px;
-  height: 48px;
+  width: var(--fdb-icon-size);
+  height: var(--fdb-icon-size);
   -webkit-mask-position: 50% 50%;
   -webkit-mask-size: cover;
   -webkit-mask-image: url("../assets/dice-cup.svg");
@@ -204,8 +155,14 @@ div#toast-container {
 }
 
 #drag {
+
+}
+
+#fast-dice-box .controls {
   color: whitesmoke;
   text-shadow: 1px 1px 2px var(--color-shadow-dark);
+  display: flex;
+  justify-content: space-between;
 }
 
 .config-table {

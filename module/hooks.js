@@ -56,3 +56,13 @@ async function preloadTemplates() {
     return loadTemplates(templatePaths);
 }
 
+Hooks.once('diceSoNiceReady', () => {
+    Hooks.on('diceSoNiceRollComplete', (messageId) => {
+        console.log(`fast-dice-box: ${messageId}`);
+        if (ui.fastDiceBox.msgIds[messageId]) {
+            socket.executeForEveryone("newDiceRoll", ui.fastDiceBox.msgIds[messageId]);
+            delete ui.fastDiceBox.msgIds[messageId];
+        }
+    });
+});
+

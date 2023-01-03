@@ -2,6 +2,9 @@ import {newDiceRoll} from "./notification.js";
 import {CONST} from "./CONST.js";
 
 export class FastDiceBox extends Application {
+
+    msgIds = {};
+
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             left: 0,
@@ -51,8 +54,13 @@ export class FastDiceBox extends Application {
             const top =  game.settings.get(CONST.MODULE_NAME, "top");
             const left =  game.settings.get(CONST.MODULE_NAME, "left");
             const directionColumn =  game.settings.get(CONST.MODULE_NAME, "columnDirection");
+            const iconSize = game.settings.get(CONST.MODULE_NAME, "iconSize");
+
+            const fontSize = (iconSize / 48) * 18;
 
             element.get(0).style.setProperty("--dice-color", color);
+            element.get(0).style.setProperty("--fdb-icon-size", iconSize + "px");
+            element.get(0).style.setProperty("--fdb-font-size", fontSize + "px");
             element.get(0).style.setProperty("top", top + "px");
             element.get(0).style.setProperty("left", left + "px");
 
@@ -69,6 +77,8 @@ export class FastDiceBox extends Application {
     activateListeners(html) {
         html.find(".collapsible").mousedown(this.onCollapse);
         html.find(".roll").mousedown(this.onFastRoll);
+
+        html.find("#orientation").mousedown(this.onOrientationChange)
 
         this.dragElement(html.get(0), html.find("#drag").get(0));
     }
@@ -133,7 +143,11 @@ export class FastDiceBox extends Application {
             rollMode: game.settings.get("core", "rollMode")
         });
 
-        await game["fast-dice-box"].socket.executeForEveryone("newDiceRoll", message);
+        if(game.dice3d) {
+            ui.fastDiceBox.msgIds[message.id] = message
+        } else {
+            await game["fast-dice-box"].socket.executeForEveryone("newDiceRoll", message);
+        }
     }
 
     dragElement = (element, dragzone) => {
@@ -181,6 +195,12 @@ export class FastDiceBox extends Application {
 
         dragzone.onmousedown = dragMouseDown;
     };
+
+    async onOrientationChange() {
+        const currentOrientation = game.settings.get(CONST.MODULE_NAME, "columnDirection");
+
+        await game.settings.set(CONST.MODULE_NAME, "columnDirection", !currentOrientation);
+    }
 }
 
 
