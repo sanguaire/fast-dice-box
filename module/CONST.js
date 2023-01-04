@@ -54,8 +54,8 @@ export const CONST = {
             active: true,
             label: "@fdb.dice.d100",
             localization: "fdb.dice.d100",
-            formula: "modules/fast-dice-box/assets/d100-grey.svg",
-            img: ""
+            formula: "d100",
+            img: "modules/fast-dice-box/assets/d100-grey.svg"
         },
         9: {
             active: true,
