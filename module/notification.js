@@ -6,6 +6,9 @@ export const newDiceRoll = async (rollMessage) => {
 
         html.find(".dice-tooltip").get(0).classList.add("expanded");
 
+        html.find("img.chat-portrait-message-portrait-generic")?.css("display", "none");
+
+
         toastr.info(`${html[0].innerHTML}`);
     }
 };
