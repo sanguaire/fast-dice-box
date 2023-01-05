@@ -16,13 +16,20 @@
   "esmodules": ["module/main.js", "libs/toastr-2.1.1/toastr.min.js"],
   "styles": ["styles/fast-dice-box.css", "libs/toastr-2.1.1/toastr.min.css"],
   "packs": [],
-  "requieres": [{
+  "requires": [{
     "id": "socketlib",
     "type": "module",
     "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
     "compatibility": {
       "verified": "1.0.12"
-    }
+    },
+    {
+      "id": "lib-wrapper",
+      "type": "module",
+      "manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json",
+      "compatibility": {
+        "verified": "1.12.11.0"
+      }
   }],
   "languages": [
     {
