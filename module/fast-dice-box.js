@@ -71,8 +71,32 @@ export class FastDiceBox extends Application {
             element.get(0).classList.add(directionColumn ? "column" : "row");
             element.get(0).classList.remove(directionColumn ? "row" : "column");
 
-            element.find(`.roll-mode-content > i`).removeClass("active");
-            element.find(`.roll-mode-content > i[data-rm=${rollMode}]`).addClass("active");
+            element.find(".roll-mode-content > i").removeClass();
+            element.find(".roll-mode-content > i").addClass("fa-solid");
+
+            if(!directionColumn) {
+                if(rollModeReversed) {
+                    element.find(".roll-mode-content > i").addClass("fa-arrow-down");
+
+                }
+                else {
+                    element.find(".roll-mode-content > i").addClass("fa-arrow-up");
+                }
+            }
+            else {
+                if(rollModeReversed) {
+                    element.find(".roll-mode-content > i").addClass("fa-arrow-right");
+
+                }
+                else {
+                    element.find(".roll-mode-content > i").addClass("fa-arrow-left");
+                }
+            }
+
+
+
+            element.find(`.roll-modes > i`).removeClass("active");
+            element.find(`.roll-modes > i[data-rm=${rollMode}]`).addClass("active");
 
             if(rollModeReversed){
                 element.addClass("reversed");
@@ -93,7 +117,8 @@ export class FastDiceBox extends Application {
 
         html.find("#orientation").mousedown(this.onOrientationChange)
 
-        html.find(".roll-mode-content > i").mousedown(this.onChangeRollMode);
+        html.find(".roll-mode-content > i").mousedown(this.onChangeRollModePosition)
+        html.find(".roll-modes > i").mousedown(this.onChangeRollMode);
 
         this.dragElement(html.get(0), html.find("#drag").get(0));
     }
@@ -229,8 +254,12 @@ export class FastDiceBox extends Application {
     }
 
     rollModeChanged(newRollMode) {
-        this.element.find(`.roll-mode-content > i`).removeClass("active");
-        this.element.find(`.roll-mode-content > i[data-rm=${this.getRollModeConstantName(newRollMode)}]`).addClass("active");
+        this.element.find(`.roll-modes > i`).removeClass("active");
+        this.element.find(`.roll-modes > i[data-rm=${this.getRollModeConstantName(newRollMode)}]`).addClass("active");
+    }
+
+    async onChangeRollModePosition() {
+        await game.settings.set(CONST.MODULE_NAME, "rmReversed", !game.settings.get(CONST.MODULE_NAME, "rmReversed"));
     }
 }
 
