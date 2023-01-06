@@ -22,6 +22,7 @@
     "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
     "compatibility": {
       "verified": "1.0.12"
+      }
     },
     {
       "id": "lib-wrapper",
@@ -30,7 +31,7 @@
       "compatibility": {
         "verified": "1.12.11.0"
       }
-   ],
+    }],
   "languages": [
     {
       "lang": "en",
