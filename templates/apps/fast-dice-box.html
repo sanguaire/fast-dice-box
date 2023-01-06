@@ -1,14 +1,34 @@
 {{log this}}
-<div id="fast-dice-box">
-  <div class="controls">
-    <div id="drag"><i class="fa-regular fa-up-down-left-right"></i></div>
-    <div id="orientation"><i class="fa-solid fa-rotate-right"></i></div>
+<div id="fast-dice-box" >
+  <div class="controls shadow">
+    <div class="buttons">
+      <div id="drag"><i class="fa-regular fa-up-down-left-right"></i></div>
+      <div id="orientation"><i class="fa-solid fa-rotate-right"></i></div>
+    </div>
   </div>
-  <div class="collapsible"></div>
+  <div class="collapsible">
+    <div class="img" ></div>
+  </div>
   <div class="content">
-    {{#each diceConfig}}
-      <div class="roll" data-roll="{{this.formula}}" title="{{this.label}}"><div class="img" style="-webkit-mask: url({{this.img}}); -webkit-mask-position: 50% 50%; -webkit-mask-size: cover"></div><span>{{this.label}}</span></div>
-    {{/each}}
+    <div class="dice-content">
+      {{#each diceConfig}}
+        <div class="roll"
+             data-roll="{{this.formula}}"
+             data-tooltip="{{this.label}}"
+             aria-describedby="tooltip">
+          <div class="img" style="/*noinspection CssUnknownTarget*/-webkit-mask: url({{this.img}}); -webkit-mask-position: 50% 50%; -webkit-mask-size: cover"></div>
+          <span>{{this.label}}</span>
+        </div>
+      {{/each}}
+    </div>
+    <div class="roll-mode-content">
+      <i></i>
+      <div class="roll-modes">
+        <i class="fa-solid fa-dice-d20" data-rm="publicroll" data-tooltip="CHAT.RollPublic" aria-describedby="tooltip"></i>
+        <i class="fa-solid fa-user-secret" data-rm="gmroll" data-tooltip="CHAT.RollPrivate" aria-describedby="tooltip"></i>
+        <i class="fa-solid fa-user-ninja" data-rm="blindroll" data-tooltip="CHAT.RollBlind" aria-describedby="tooltip"></i>
+        <i class="fa-solid fa-ghost" data-rm="selfroll" data-tooltip="CHAT.RollSelf" aria-describedby="tooltip"></i>
+      </div>
+    </div>
   </div>
-
 </div>

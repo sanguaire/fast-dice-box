@@ -35,6 +35,8 @@
     "no-of-dice": "No of dice",
     "notification": "Notification",
     "notification-hint": "Show additional notification on roll.",
+    "rm-reversed": "Move role mode",
+    "rm-reversed-hint": "Moves the role mode buttons to the opposite side of the element.",
     "top": "Position top"
   }
 }

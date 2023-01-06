@@ -1,30 +1,180 @@
 #fast-dice-box{
   --fdb-background-color: rgba(255, 255, 255, 0.3);
   --fdb-icon-size: 48px;
+  /*noinspection CssUnresolvedCustomProperty*/
   --fdb-font-size: var(--font-size-18);
+  --fdb-border-radius: 0.5em;
+  --fdb-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --fdb-padding: 0.5em;
+  --fdb-gap: 0.8em;
+  --fdb-reversed-displacement: calc(1em + var(--fdb-padding) * 2);
   pointer-events: all;
   display: flex;
   height: fit-content;
-  row-gap: 0.8em;
   /*noinspection CssUnresolvedCustomProperty*/
   z-index: calc(var(--z-index-ui) + 10);
-  border-radius: 5px;
-  padding: 5px;
-  background-color: var(--fdb-background-color);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: absolute;
 }
 
+#fast-dice-box .content {
+  display: none;
+  overflow: visible;
+  height: fit-content;
+  width: fit-content;
+  font-size: var(--fdb-font-size);
+}
+
+#fast-dice-box .collapsible {
+  position: relative;
+  pointer-events: all;
+  width: fit-content;
+  height: fit-content;
+  transition: all .2s ease-in-out;
+  background-color: var(--fdb-background-color);
+  padding: var(--fdb-padding);
+  font-size: var(--fdb-font-size);
+}
+
+#fast-dice-box .dice-content,
+#fast-dice-box .roll-modes {
+  display: flex;
+  gap: var(--fdb-gap);
+  height: fit-content;
+  width: fit-content;
+  background-color: var(--fdb-background-color);
+  padding: var(--fdb-padding);
+  font-size: var(--fdb-font-size);
+}
+
+#fast-dice-box .roll-mode-content {
+  display: flex;
+  align-items: center;
+  gap: var(--fdb-gap);
+  pointer-events: all;
+}
+
+#fast-dice-box .roll-mode-content, #fast-dice-box .roll-modes {
+  justify-content: end;
+  align-self: end;
+}
+
+#fast-dice-box .roll-mode-content > i,
+#fast-dice-box .roll-modes > i{
+  pointer-events: all;
+}
+
+#fast-dice-box .roll-modes > i.active {
+  /*noinspection CssUnresolvedCustomProperty*/
+  text-shadow: 0 0 8px var(--color-shadow-primary);
+}
+
+#fast-dice-box.row .dice-content {
+  border-radius: 0 var(--fdb-border-radius) 0 0;
+}
+
+#fast-dice-box.column .dice-content {
+  border-radius: 0 0 0 var(--fdb-border-radius);
+}
+
+#fast-dice-box.row .roll-modes {
+  border-radius: 0 0 var(--fdb-border-radius) var(--fdb-border-radius);
+}
+
+#fast-dice-box.column .roll-modes {
+  border-radius: 0 var(--fdb-border-radius) var(--fdb-border-radius) 0;
+}
+
 #fast-dice-box.row,
-#fast-dice-box.row > .content,
-#fast-dice-box.column > .controls {
+#fast-dice-box.row > .content > .dice-content,
+#fast-dice-box.column > .content,
+#fast-dice-box.column .buttons {
   flex-direction: row;
 }
 
 #fast-dice-box.column,
-#fast-dice-box.column > .content,
-#fast-dice-box.row > .controls {
+#fast-dice-box.column > .content > .dice-content,
+#fast-dice-box.row > .content,
+#fast-dice-box.row .buttons {
   flex-direction: column;
+}
+
+#fast-dice-box.row > .content > .roll-mode-content,
+#fast-dice-box.row > .content > .roll-mode-content > .roll-modes {
+  flex-direction: row;
+}
+
+#fast-dice-box.column > .content > .roll-mode-content,
+#fast-dice-box.column > .content > .roll-mode-content > .roll-modes {
+  flex-direction: column;
+}
+
+#fast-dice-box.column.reversed > .content {
+  flex-direction: row-reverse;
+  position: relative;
+  right: var(--fdb-reversed-displacement);
+}
+
+#fast-dice-box.row.reversed > .content {
+  flex-direction: column-reverse;
+  position: relative;
+  bottom: var(--fdb-reversed-displacement);
+}
+
+#fast-dice-box.row.reversed .dice-content {
+  border-radius: 0 0 var(--fdb-border-radius) 0;
+}
+
+#fast-dice-box.column.reversed .dice-content {
+  border-radius: 0 0 var(--fdb-border-radius) 0;
+}
+
+#fast-dice-box.row.reversed .roll-modes {
+  border-radius: var(--fdb-border-radius) var(--fdb-border-radius) 0 0;
+}
+
+#fast-dice-box.column.reversed .roll-modes {
+  border-radius: var(--fdb-border-radius) 0 0 var(--fdb-border-radius);
+}
+
+#fast-dice-box .controls {
+  color: whitesmoke;
+  text-shadow: 1px 1px 2px var(--color-shadow-dark);
+  background-color: var(--fdb-background-color);
+  display: flex;
+  justify-content: start;
+  gap: var(--fdb-gap);
+  padding: var(--fdb-padding);
+  height: fit-content;
+  width: fit-content;
+  font-size: var(--fdb-font-size);
+}
+
+#fast-dice-box .roll-mode-content > i {
+  color: whitesmoke;
+  text-shadow: 1px 1px 2px var(--color-shadow-dark);
+}
+
+#fast-dice-box.row > .controls {
+  border-radius: var(--fdb-border-radius) 0 0 var(--fdb-border-radius);
+}
+
+#fast-dice-box .buttons {
+  display: flex;
+  gap: var(--fdb-gap);
+  justify-content: space-around;
+}
+
+
+#fast-dice-box.row .buttons {
+  height: var(--fdb-icon-size);
+}
+
+#fast-dice-box.column > .controls {
+  border-radius: var(--fdb-border-radius) var(--fdb-border-radius) 0 0;
+}
+
+#fast-dice-box.column .buttons {
+  width: var(--fdb-icon-size);
 }
 
 #fast-dice-box .roll{
@@ -58,7 +208,7 @@
 }
 
 #fast-dice-box .roll:hover,
-#fast-dice-box .collapsible:hover {
+#fast-dice-box .collapsible > .img:hover {
   transform: scale(1.2);
 }
 
@@ -82,14 +232,12 @@
   width: 100%;
 }
 
-#fast-dice-box .collapsible {
-  position: relative;
-  z-index: 0;
-  pointer-events: all;
-  width: var(--fdb-icon-size);
-  height: var(--fdb-icon-size);
-  transition: all .2s ease-in-out;
-  margin-left: 0.5em;
+#fast-dice-box.row .collapsible:not(.active) {
+  border-radius: 0 var(--fdb-border-radius) var(--fdb-border-radius) 0;
+}
+
+#fast-dice-box.column .collapsible:not(.active) {
+  border-radius: 0 0 var(--fdb-border-radius) var(--fdb-border-radius);
 }
 
 #fast-dice-box.column .collapsible.active {
@@ -98,12 +246,10 @@
 
 #fast-dice-box.row .collapsible.active {
   border-right: 1px solid white;
-  margin-right: 1em;
+  padding-right: 1em;
 }
 
-#fast-dice-box .collapsible:before {
-  content: "";
-  position: absolute;
+#fast-dice-box .collapsible > .img {
   top: 0;
   left: 0;
   z-index: -1;
@@ -113,14 +259,6 @@
   -webkit-mask-position: 50% 50%;
   -webkit-mask-size: cover;
   -webkit-mask-image: url("../assets/dice-cup.svg");
-}
-
-#fast-dice-box .content {
-  display: none;
-  overflow: visible;
-  height: fit-content;
-  row-gap: 0.8em;
-  column-gap: 0.8em;
 }
 
 div#toast-container {
@@ -156,13 +294,6 @@ div#toast-container {
 
 #drag {
 
-}
-
-#fast-dice-box .controls {
-  color: whitesmoke;
-  text-shadow: 1px 1px 2px var(--color-shadow-dark);
-  display: flex;
-  justify-content: space-between;
 }
 
 .config-table {
