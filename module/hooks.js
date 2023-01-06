@@ -2,6 +2,7 @@ import {registerSettings} from "./settings.js";
 import {initializeToastr, newDiceRoll} from "./notification.js";
 import {FastDiceBox} from "./fast-dice-box.js";
 import {CONST} from "./CONST.js";
+import {sendMessage} from "./utils.js";
 
 let socket;
 
@@ -18,12 +19,21 @@ export const registerHookHandlers = () =>{
             CONFIG.ui.fastDiceBox = FastDiceBox;
 
             initializeToastr();
+
+            libWrapper.register(CONST.MODULE_NAME, "game.settings.set", async (wrapped, ...args) => {
+                const result = await wrapped(...args)
+
+                Hooks.call(`${args[0]}-${args[1]}-changed`, args[2]);
+
+                return result;
+            }, "MIXED")
+
         });
 
     Hooks.once('ready', async () => {
        await ui.fastDiceBox.render(true);
+       Hooks.on("core-rollMode-changed", ui.fastDiceBox.rollModeChanged.bind(ui.fastDiceBox))
     });
-
 
     Hooks.on("renderSettingsConfig", (app, html, data) => {
         let name, colour;
@@ -56,13 +66,5 @@ async function preloadTemplates() {
     return loadTemplates(templatePaths);
 }
 
-Hooks.once('diceSoNiceReady', () => {
-    Hooks.on('diceSoNiceRollComplete', (messageId) => {
-        console.log(`fast-dice-box: ${messageId}`);
-        if (ui.fastDiceBox.msgIds[messageId]) {
-            socket.executeForEveryone("newDiceRoll", ui.fastDiceBox.msgIds[messageId]);
-            delete ui.fastDiceBox.msgIds[messageId];
-        }
-    });
-});
+
 

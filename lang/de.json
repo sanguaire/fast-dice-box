@@ -35,6 +35,8 @@
     "no-of-dice": "Würfelanzahl",
     "notification": "Benachrichtigung",
     "notification-hint": "Zusätzliche Benachrichtiung bei einem Wurf anzeigen.",
+    "rm-reversed": "Würfelmodus verschieben",
+    "rm-reversed-hint": "Verschiebt die Würfelmodusbuttons auf die gegenüberliegende Seite des Elements.",
     "top": "Position oben"
   }
 }

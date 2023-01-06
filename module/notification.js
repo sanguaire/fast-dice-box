@@ -2,13 +2,13 @@ import {CONST} from "./CONST.js";
 
 export const newDiceRoll = async (rollMessage) => {
     if(game.settings.get(CONST.MODULE_NAME, "notification")) {
+        if(!game.user.isGM && rollMessage.blind) {
+            return;
+        }
+
         const html = await rollMessage.getHTML();
-
-        html.find(".dice-tooltip").get(0).classList.add("expanded");
-
+        html.find(".dice-tooltip").addClass("expanded");
         html.find("img.chat-portrait-message-portrait-generic")?.css("display", "none");
-
-
         toastr.info(`${html[0].innerHTML}`);
     }
 };
