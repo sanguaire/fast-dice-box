@@ -190,6 +190,7 @@
   align-items: center;
   text-shadow: -1px -1px 1px #ffffff, 1px -1px 1px #ffffff, -1px 1px 1px #ffffff, 1px 1px 1px #ffffff;
   transition: all .2s ease-in-out;
+  filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
 }
 
 #fast-dice-box .roll > span {
@@ -249,7 +250,7 @@
   padding-right: 1em;
 }
 
-#fast-dice-box .collapsible > .img {
+#fast-dice-box .collapsible > .shadowed > .img {
   top: 0;
   left: 0;
   z-index: -1;
@@ -259,6 +260,11 @@
   -webkit-mask-position: 50% 50%;
   -webkit-mask-size: cover;
   -webkit-mask-image: url("../assets/dice-cup.svg");
+}
+
+#fast-dice-box .collapsible > .shadowed {
+  filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
+
 }
 
 div#toast-container {
