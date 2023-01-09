@@ -1,53 +1,62 @@
 {
   "id": "fast-dice-box",
-  "name": "fast-dice-box",
   "title": "Fast dice box",
   "description": "A box to make an one click dice roll",
-  "version": "0.7",
-  "author": "André Kurth",
-  "minimumCoreVersion": "9.238",
-  "compatibleCoreVersion": "10",
+  "version": "0.8",
+  "authors": [{
+    "name": "André Kurth",
+    "discord": "Sanguaire#7321"
+  }],
   "compatibility": {
-    "minimum": 9,
+    "minimum": "10",
     "verified": "10",
     "maximum": "10"
   },
-  "scripts": [],
-  "esmodules": ["module/main.js", "libs/toastr-2.1.1/toastr.min.js"],
-  "styles": ["styles/fast-dice-box.css", "libs/toastr-2.1.1/toastr.min.css"],
+  "esmodules": [
+    "module/main.js",
+    "libs/toastr-2.1.1/toastr.min.js"
+  ],
+  "styles": [
+    "styles/fast-dice-box.css",
+    "libs/toastr-2.1.1/toastr.min.css"
+  ],
   "packs": [],
-  "requires": [{
-    "id": "socketlib",
-    "type": "module",
-    "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
-    "compatibility": {
-      "verified": "1.0.12"
+  "relationships": {
+    "systems": [],
+    "requires": [
+      {
+        "id": "socketlib",
+        "type": "module",
+        "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
+        "compatibility": {
+          "verified": "1.0.12"
+        }
+      },
+      {
+        "id": "lib-wrapper",
+        "type": "module",
+        "manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json",
+        "compatibility": {
+          "verified": "1.12.11.0"
+        }
       }
-    },
-    {
-      "id": "lib-wrapper",
-      "type": "module",
-      "manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json",
-      "compatibility": {
-        "verified": "1.12.11.0"
-      }
-    }],
+    ]
+  },
   "languages": [
     {
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
     },
-	{
+    {
       "lang": "de",
       "name": "German",
-      "path": "lang/de.json"		
-	}
+      "path": "lang/de.json"
+    }
   ],
   "socket": true,
-  "system": [],
   "library": false,
   "url": "https://github.com/sanguaire/fast-dice-box/",
-  "manifest": "https://github.com/sanguaire/fast-dice-box/releases/download/v0.7/module.json",
-  "download": "https://github.com/sanguaire/fast-dice-box/releases/download/v0.7/fast-dice-box.zip"
+  "manifest": "https://github.com/sanguaire/fast-dice-box/releases/download/v0.8/module.json",
+  "download": "https://github.com/sanguaire/fast-dice-box/releases/download/v0.8/fast-dice-box.zip"
 }
