@@ -5,6 +5,7 @@
   --fdb-font-size: var(--font-size-18);
   --fdb-border-radius: 0.5em;
   --fdb-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --fdb-drop-shadow: drop-shadow(0.15rem 0.15rem 0.20rem rgba(0, 0, 0, 0.5));
   --fdb-padding: 0.5em;
   --fdb-gap: 0.8em;
   --fdb-reversed-displacement: calc(1em + var(--fdb-padding) * 2);
@@ -190,7 +191,7 @@
   align-items: center;
   text-shadow: -1px -1px 1px #ffffff, 1px -1px 1px #ffffff, -1px 1px 1px #ffffff, 1px 1px 1px #ffffff;
   transition: all .2s ease-in-out;
-  filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
+  filter: var(--fdb-drop-shadow);
 }
 
 #fast-dice-box .roll > span {
@@ -263,7 +264,7 @@
 }
 
 #fast-dice-box .collapsible > .shadowed {
-  filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
+  filter: var(--fdb-drop-shadow);
 
 }
 
