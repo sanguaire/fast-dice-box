@@ -18,6 +18,8 @@
   ],
   "styles": [
     "styles/fast-dice-box.css",
+    "styles/settings.css",
+    "styles/notification.css",
     "libs/toastr-2.1.1/toastr.min.css"
   ],
   "packs": [],

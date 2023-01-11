@@ -1,0 +1,17 @@
+.config-table {
+    display: grid;
+    grid-template-columns: 40px 40px 3fr 1fr 2fr 2fr;
+    grid-template-rows: auto;
+    column-gap: 0.2em;
+}
+
+.img-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.img-selector > img {
+    height: 32px;
+    width: 32px;
+}
