@@ -20,6 +20,7 @@
   z-index: calc(var(--z-index-ui) + 10);
   position: absolute;
   filter: var(--fdb-drop-shadow);
+  grid-gap: 0;
 }
 
 #fast-dice-box .content {
