@@ -1,7 +1,10 @@
+/*noinspection CssUnresolvedCustomProperty*/
 #fast-dice-box{
+  --fdb-dice-color: red;
   --fdb-background-color: rgba(255, 255, 255, 0.3);
   --fdb-icon-size: 48px;
-  /*noinspection CssUnresolvedCustomProperty*/
+  --fdb-text-shadow: 1px 1px 2px var(--color-shadow-dark);
+  --fdb-text-shadow-accent: 0 0 8px var(--color-shadow-primary);
   --fdb-font-size: var(--font-size-18);
   --fdb-border-radius: 0.5em;
   --fdb-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -9,12 +12,14 @@
   --fdb-padding: 0.5em;
   --fdb-gap: 0.8em;
   --fdb-reversed-displacement: calc(1em + var(--fdb-padding) * 2);
-  pointer-events: all;
+  --fdb-font: var(--font-primary);
+  --fdb-font-accent: var(--font-accent);
   display: flex;
   height: fit-content;
   /*noinspection CssUnresolvedCustomProperty*/
   z-index: calc(var(--z-index-ui) + 10);
   position: absolute;
+  filter: var(--fdb-drop-shadow);
 }
 
 #fast-dice-box .content {
@@ -65,8 +70,7 @@
 }
 
 #fast-dice-box .roll-modes > i.active {
-  /*noinspection CssUnresolvedCustomProperty*/
-  text-shadow: 0 0 8px var(--color-shadow-primary);
+   text-shadow: var(--fdb-text-shadow-accent);
 }
 
 #fast-dice-box.row .dice-content {
@@ -139,7 +143,7 @@
 
 #fast-dice-box .controls {
   color: whitesmoke;
-  text-shadow: 1px 1px 2px var(--color-shadow-dark);
+  text-shadow: var(--fdb-text-shadow);
   background-color: var(--fdb-background-color);
   display: flex;
   justify-content: start;
@@ -152,7 +156,7 @@
 
 #fast-dice-box .roll-mode-content > i {
   color: whitesmoke;
-  text-shadow: 1px 1px 2px var(--color-shadow-dark);
+  text-shadow: var(--fdb-text-shadow);
 }
 
 #fast-dice-box.row > .controls {
@@ -204,7 +208,7 @@
   top: 0;
   left: 0;
   z-index: -1;
-  background: var(--dice-color);
+  background: var(--fdb-dice-color);
   width: var(--fdb-icon-size);
   height: var(--fdb-icon-size);
 }
@@ -215,7 +219,7 @@
 }
 
 .fast-dice-box form {
-  font-family: var(--font-primary);
+  font-family: var(--fdb-font);
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -228,7 +232,7 @@
   display: block;
   border: none;
   background: rgba(0, 0, 0, 0.1);
-  font-size: var(--font-size-18);
+  font-size: var(--fdb-font-size);
   align-content: center;
   text-align: center;
   width: 100%;
@@ -255,7 +259,7 @@
   top: 0;
   left: 0;
   z-index: -1;
-  background: var(--dice-color);
+  background: var(--fdb-dice-color);
   width: var(--fdb-icon-size);
   height: var(--fdb-icon-size);
   -webkit-mask-position: 50% 50%;
@@ -292,7 +296,7 @@ div#toast-container {
 }
 
 .toast-message h4.message-sender {
-  font-family: var(--font-accent);
+  font-family: var(--fdb-font-accent);
 }
 
 #toast-container>div {

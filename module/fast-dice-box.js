@@ -62,7 +62,7 @@ export class FastDiceBox extends Application {
 
             const fontSize = (iconSize / 48) * 18;
 
-            element.get(0).style.setProperty("--dice-color", color);
+            element.get(0).style.setProperty("--fdb-dice-color", color);
             element.get(0).style.setProperty("--fdb-icon-size", iconSize + "px");
             element.get(0).style.setProperty("--fdb-font-size", fontSize + "px");
             element.get(0).style.setProperty("top", top + "px");
