@@ -8,6 +8,7 @@ export function debounce(callback, delay) {
     }
 }
 
+/* noinspection typo*/
 export async function sendMessage({message, rollMode}) {
     const socket = game["fast-dice-box"].socket;
 
@@ -16,8 +17,8 @@ export async function sendMessage({message, rollMode}) {
     }
 
     if (rollMode === "gmroll") {
-        const gmUids = game.users.filter(u => u.isGM && u.id !== game.userId).map(u => u.id);
-        await socket.executeForUsers("newDiceRoll", [game.userId, ...gmUids], message)
+        const gmIds = game["users"].filter(u => u.isGM && u.id !== game.userId).map(u => u.id);
+        await socket.executeForUsers("newDiceRoll", [game.userId, ...gmIds], message)
     }
 
     if (rollMode === "blindroll") {

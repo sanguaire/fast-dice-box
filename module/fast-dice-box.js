@@ -1,10 +1,7 @@
-import {newDiceRoll} from "./notification.js";
 import {CONST} from "./CONST.js";
 import {sendMessage} from "./utils.js";
 
 export class FastDiceBox extends Application {
-
-    msgIds = {};
 
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -29,7 +26,7 @@ export class FastDiceBox extends Application {
         const diceSettings = game.settings.get(CONST.MODULE_NAME, "dice-configuration");
         const diceConfig = [];
 
-        for(const [key, value] of Object.entries(diceSettings)) {
+        for(const [, value] of Object.entries(diceSettings)) {
             if(!value.active) {
                 continue;
             }
@@ -201,7 +198,7 @@ export class FastDiceBox extends Application {
 
     }
 
-    dragElement = (element, dragzone) => {
+    dragElement = (element, dragZone) => {
         let pos1 = 0,
             pos2 = 0,
             pos3 = 0,
@@ -232,7 +229,7 @@ export class FastDiceBox extends Application {
             element.style.left = `${element.offsetLeft - pos1}px`;
         };
 
-        const dragMouseDown = (event) => {
+        dragZone.onmousedown = (event) => {
             event.preventDefault();
 
             pos3 = event.clientX;
@@ -243,8 +240,6 @@ export class FastDiceBox extends Application {
             document.onmouseup = dragMouseUp;
             document.onmousemove = dragMouseMove;
         };
-
-        dragzone.onmousedown = dragMouseDown;
     };
 
     async onOrientationChange() {

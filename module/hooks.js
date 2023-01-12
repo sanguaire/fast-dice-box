@@ -2,7 +2,6 @@ import {registerSettings} from "./settings.js";
 import {initializeToastr, newDiceRoll} from "./notification.js";
 import {FastDiceBox} from "./fast-dice-box.js";
 import {CONST} from "./CONST.js";
-import {sendMessage} from "./utils.js";
 
 let socket;
 
@@ -32,10 +31,10 @@ export const registerHookHandlers = () =>{
 
     Hooks.once('ready', async () => {
        await ui.fastDiceBox.render(true);
-       Hooks.on("core-rollMode-changed", ui.fastDiceBox.rollModeChanged.bind(ui.fastDiceBox))
+       Hooks.on("core-rollMode-changed", ui.fastDiceBox["rollModeChanged"].bind(ui.fastDiceBox))
     });
 
-    Hooks.on("renderSettingsConfig", (app, html, data) => {
+    Hooks.on("renderSettingsConfig", (app, html) => {
         let name, colour;
         name = `${CONST.MODULE_NAME}.diceColor`;
         colour = game.settings.get("fast-dice-box", "diceColor");
