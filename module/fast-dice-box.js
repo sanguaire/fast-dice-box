@@ -55,6 +55,7 @@ export class FastDiceBox extends Application {
             const iconSize = game.settings.get(CONST.MODULE_NAME, "iconSize");
             const rollMode = that.getRollModeConstantName(game.settings.get("core", "rollMode"));
             const rollModeReversed = game.settings.get(CONST.MODULE_NAME, "rmReversed");
+            const noRollMode = game.settings.get(CONST.MODULE_NAME, "noRollMode");
 
 
             const fontSize = (iconSize / 48) * 18;
@@ -65,6 +66,9 @@ export class FastDiceBox extends Application {
             element.get(0).style.setProperty("top", top + "px");
             element.get(0).style.setProperty("left", left + "px");
 
+            if(noRollMode) {
+                element.get(0).classList.add("no-roll-modes");
+            }
             element.get(0).classList.add(directionColumn ? "column" : "row");
             element.get(0).classList.remove(directionColumn ? "row" : "column");
 

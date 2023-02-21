@@ -37,6 +37,16 @@ export const registerSettings = () => {
         config: true
     });
 
+    game.settings.register(CONST.MODULE_NAME, "noRollMode", {
+        name: game.i18n.localize("fdb.no-roll-modes"),
+        hint: game.i18n.localize("fdb.no-roll-modes"),
+        scope: "client",
+        type: Boolean,
+        default: false,
+        config: true,
+        requiresReload: true
+    });
+
     game.settings.register(CONST.MODULE_NAME, "rmReversed", {
         name: game.i18n.localize("fdb.rm-reversed"),
         hint: game.i18n.localize("fdb.rm-reversed-hint"),

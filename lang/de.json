@@ -33,6 +33,7 @@
     "left": "Position links",
     "modifier": "Modifikator",
     "no-of-dice": "Würfelanzahl",
+    "no-roll-modes": "Keine Würfelmodi anzeigen",
     "notification": "Benachrichtigung",
     "notification-hint": "Zusätzliche Benachrichtiung bei einem Wurf anzeigen.",
     "rm-reversed": "Würfelmodus verschieben",

@@ -23,6 +23,11 @@
   grid-gap: 0;
 }
 
+#fast-dice-box.no-roll-modes .roll-mode-content{
+  opacity: 0;
+  visibility: collapse;
+}
+
 #fast-dice-box .content {
   display: none;
   overflow: visible;
@@ -80,6 +85,14 @@
 
 #fast-dice-box.column .dice-content {
   border-radius: 0 0 0 var(--fdb-border-radius);
+}
+
+#fast-dice-box.row.no-roll-modes .dice-content {
+  border-radius: 0 var(--fdb-border-radius) var(--fdb-border-radius) 0;
+}
+
+#fast-dice-box.column.no-roll-modes .dice-content {
+  border-radius: 0 0 var(--fdb-border-radius) var(--fdb-border-radius);
 }
 
 #fast-dice-box.row .roll-modes {

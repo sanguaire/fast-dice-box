@@ -33,6 +33,7 @@
     "left": "Position Left",
     "modifier": "Modifier",
     "no-of-dice": "No of dice",
+    "no-roll-modes": "Don´t show roll modes",
     "notification": "Notification",
     "notification-hint": "Show additional notification on roll.",
     "rm-reversed": "Move role mode",
