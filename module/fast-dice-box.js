@@ -26,19 +26,18 @@ export class FastDiceBox extends Application {
         const diceSettings = game.settings.get(CONST.MODULE_NAME, "dice-configuration");
         const diceConfig = [];
 
-        for(const [, value] of Object.entries(diceSettings)) {
-            if(!value.active) {
+        for (const [, value] of Object.entries(diceSettings)) {
+            if (!value.active) {
                 continue;
             }
 
-            if(value.localization !== "") {
+            if (value.localization !== "") {
                 value.label = game.i18n.localize(value.localization);
             }
             diceConfig.push(value);
         }
 
-
-        return foundry.utils.mergeObject(super.getData(options),{diceConfig});
+        return foundry.utils.mergeObject(super.getData(options), {diceConfig});
     }
 
     render(force = false, options = {}) {
@@ -48,26 +47,30 @@ export class FastDiceBox extends Application {
         const o = options;
 
         const initElement = function (element) {
-            const color =  game.settings.get(CONST.MODULE_NAME, "diceColor");
-            const top =  game.settings.get(CONST.MODULE_NAME, "top");
-            const left =  game.settings.get(CONST.MODULE_NAME, "left");
-            const directionColumn =  game.settings.get(CONST.MODULE_NAME, "columnDirection");
+            const color = game.settings.get(CONST.MODULE_NAME, "diceColor");
+            const reversed = game.settings.get(CONST.MODULE_NAME, "reversed");
+            const top = game.settings.get(CONST.MODULE_NAME, "top");
+            const left = game.settings.get(CONST.MODULE_NAME, "left");
+            const directionColumn = game.settings.get(CONST.MODULE_NAME, "columnDirection");
             const iconSize = game.settings.get(CONST.MODULE_NAME, "iconSize");
             const rollMode = that.getRollModeConstantName(game.settings.get("core", "rollMode"));
             const rollModeReversed = game.settings.get(CONST.MODULE_NAME, "rmReversed");
             const noRollMode = game.settings.get(CONST.MODULE_NAME, "noRollMode");
-
 
             const fontSize = (iconSize / 48) * 18;
 
             element.get(0).style.setProperty("--fdb-dice-color", color);
             element.get(0).style.setProperty("--fdb-icon-size", iconSize + "px");
             element.get(0).style.setProperty("--fdb-font-size", fontSize + "px");
+
             element.get(0).style.setProperty("top", top + "px");
             element.get(0).style.setProperty("left", left + "px");
 
-            if(noRollMode) {
+            if (noRollMode) {
                 element.get(0).classList.add("no-roll-modes");
+            }
+            if (reversed) {
+                element.get(0).classList.add("reversed");
             }
             element.get(0).classList.add(directionColumn ? "column" : "row");
             element.get(0).classList.remove(directionColumn ? "row" : "column");
@@ -75,38 +78,33 @@ export class FastDiceBox extends Application {
             element.find(".roll-mode-content > i").removeClass();
             element.find(".roll-mode-content > i").addClass("fa-solid");
 
-            if(!directionColumn) {
-                if(rollModeReversed) {
+            if (!directionColumn) {
+                if (rollModeReversed) {
                     element.find(".roll-mode-content > i").addClass("fa-arrow-down");
 
-                }
-                else {
+                } else {
                     element.find(".roll-mode-content > i").addClass("fa-arrow-up");
                 }
-            }
-            else {
-                if(rollModeReversed) {
+            } else {
+                if (rollModeReversed) {
                     element.find(".roll-mode-content > i").addClass("fa-arrow-right");
 
-                }
-                else {
+                } else {
                     element.find(".roll-mode-content > i").addClass("fa-arrow-left");
                 }
             }
 
-
-
             element.find(`.roll-modes > i`).removeClass("active");
             element.find(`.roll-modes > i[data-rm=${rollMode}]`).addClass("active");
 
-            if(rollModeReversed){
-                element.addClass("reversed");
+            if (rollModeReversed) {
+                element.addClass("rm-reversed");
             } else {
-                element.removeClass("reversed");
+                element.removeClass("rm-reversed");
             }
         };
 
-        if (!this.rendered) super._render(force, options).then(()=>that.render(f, o));
+        if (!this.rendered) super._render(force, options).then(() => that.render(f, o));
         else initElement(e);
 
         return this;
@@ -128,7 +126,7 @@ export class FastDiceBox extends Application {
         return Object.entries(CONFIG.Dice.rollModes).find(e => e[1] === rm || e[0] === rm)[0];
     }
 
-    async onChangeRollMode(ev){
+    async onChangeRollMode(ev) {
         const target = ev.target;
         const rollMode = target.dataset.rm;
 
@@ -136,15 +134,34 @@ export class FastDiceBox extends Application {
     };
 
     async onCollapse(ev) {
-        const btn =  ev.currentTarget;
-        btn.classList.toggle("active");
+        const btn = $(ev.currentTarget);
+        const fdb = $("#fast-dice-box");
+        btn.toggleClass("active");
 
-        const content = btn.nextElementSibling;
+        const reversed = game.settings.get(CONST.MODULE_NAME, "reversed");
+        const directionColumn = game.settings.get(CONST.MODULE_NAME, "columnDirection");
+        const top = game.settings.get(CONST.MODULE_NAME, "top");
+        const left = game.settings.get(CONST.MODULE_NAME, "left");
 
-        if (content.style.display === "flex"){
-            content.style.display = "none";
-        } else {
-            content.style.display = "flex";
+        const content = btn.next();
+
+        if(btn.hasClass("active")){
+            content.css("display", "flex");
+
+            if(reversed) {
+                if(directionColumn) {
+                    fdb.css("top", (top - content.outerHeight()) + "px");
+                    fdb.css("left", left + "px");
+                } else {
+                    fdb.css("top", top + "px");
+                    fdb.css("left", (left - content.outerWidth()) + "px");
+                }
+            }
+        } else
+        {
+            content.css("display", "none");
+            fdb.css("top", top + "px");
+            fdb.css("left", left + "px");
         }
     }
 
@@ -181,7 +198,7 @@ export class FastDiceBox extends Application {
             noOfDice = Number.parseInt(result.noOfDice);
         }
 
-        if(/^\d/.test(target.dataset.roll)) noOfDice = '';
+        if (/^\d/.test(target.dataset.roll)) noOfDice = '';
 
         const formula = modifier === 0
             ? `${noOfDice}${target.dataset.roll}`
@@ -191,12 +208,10 @@ export class FastDiceBox extends Application {
 
         const roll = await new Roll(formula).roll({async: true});
 
-
         const message = await roll.toMessage({
             speaker: {actor: character},
             rollMode
         });
-
 
         await sendMessage({message, rollMode});
 
@@ -207,14 +222,17 @@ export class FastDiceBox extends Application {
             pos2 = 0,
             pos3 = 0,
             pos4 = 0;
+
         //MouseUp occurs when the user releases the mouse button
         const dragMouseUp = async () => {
             document.onmouseup = null;
             //onmousemove attribute fires when the pointer is moving while it is over an element.
             document.onmousemove = null;
 
-            await game.settings.set(CONST.MODULE_NAME, "top", Number.parseInt(element.style.top.replace("px", "")));
-            await game.settings.set(CONST.MODULE_NAME, "left", Number.parseInt(element.style.left.replace("px", "")));
+            const coords = this.getCoords(element);
+
+            await game.settings.set(CONST.MODULE_NAME, "top", coords.top);
+            await game.settings.set(CONST.MODULE_NAME, "left", coords.left);
 
             element.classList.remove("drag");
         };
@@ -222,15 +240,22 @@ export class FastDiceBox extends Application {
         const dragMouseMove = (event) => {
 
             event.preventDefault();
+
             //clientX property returns the horizontal coordinate of the mouse pointer
             pos1 = pos3 - event.clientX;
             //clientY property returns the vertical coordinate of the mouse pointer
             pos2 = pos4 - event.clientY;
+
             pos3 = event.clientX;
             pos4 = event.clientY;
+
             //offsetTop property returns the top position relative to the parent
-            element.style.top = `${element.offsetTop - pos2}px`;
-            element.style.left = `${element.offsetLeft - pos1}px`;
+
+            const coords = this.getCoords(element);
+
+            element.style.top = `${coords.top - pos2}px`;
+            element.style.left = `${coords.left - pos1}px`;
+
         };
 
         dragZone.onmousedown = (event) => {
@@ -244,7 +269,19 @@ export class FastDiceBox extends Application {
             document.onmouseup = dragMouseUp;
             document.onmousemove = dragMouseMove;
         };
+
     };
+
+    getCoords(elem) {
+        let box = elem.getBoundingClientRect();
+
+        return {
+            top: box.top + window.scrollY,
+            right: box.right + window.scrollX,
+            bottom: box.bottom + window.scrollY,
+            left: box.left + window.scrollX
+        };
+    }
 
     async onOrientationChange() {
         const currentOrientation = game.settings.get(CONST.MODULE_NAME, "columnDirection");

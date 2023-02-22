@@ -36,6 +36,8 @@
     "no-roll-modes": "Keine Würfelmodi anzeigen",
     "notification": "Benachrichtigung",
     "notification-hint": "Zusätzliche Benachrichtiung bei einem Wurf anzeigen.",
+    "reversed": "Richtung umkehren",
+    "reversed-hint": "Tauscht die Ausklapprichtung der Würfel von rechts nach links bzw. unten nach oben.",
     "rm-reversed": "Würfelmodus verschieben",
     "rm-reversed-hint": "Verschiebt die Würfelmodusbuttons auf die gegenüberliegende Seite des Elements.",
     "top": "Position oben"
