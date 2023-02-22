@@ -57,6 +57,16 @@ export const registerSettings = () => {
         onChange: async () => debounce(await ui.fastDiceBox.render(true), 100)
     });
 
+    game.settings.register(CONST.MODULE_NAME, "reversed", {
+        name: game.i18n.localize("fdb.reversed"),
+        hint: game.i18n.localize("fdb.reversed"),
+        scope: "client",
+        type: Boolean,
+        default: false,
+        config: true,
+        requiresReload: true
+    });
+
     game.settings.register(CONST.MODULE_NAME, "top", {
         name: game.i18n.localize("fdb.top"),
         scope: "client",
