@@ -276,10 +276,10 @@ export class FastDiceBox extends Application {
         let box = elem.getBoundingClientRect();
 
         return {
-            top: box.top + window.pageYOffset,
-            right: box.right + window.pageXOffset,
-            bottom: box.bottom + window.pageYOffset,
-            left: box.left + window.pageXOffset
+            top: box.top + window.scrollY,
+            right: box.right + window.scrollX,
+            bottom: box.bottom + window.scrollY,
+            left: box.left + window.scrollX
         };
     }
 
