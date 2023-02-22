@@ -59,7 +59,7 @@ export const registerSettings = () => {
 
     game.settings.register(CONST.MODULE_NAME, "reversed", {
         name: game.i18n.localize("fdb.reversed"),
-        hint: game.i18n.localize("fdb.reversed"),
+        hint: game.i18n.localize("fdb.reversed-hint"),
         scope: "client",
         type: Boolean,
         default: false,
