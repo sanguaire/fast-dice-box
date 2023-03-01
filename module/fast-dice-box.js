@@ -198,7 +198,7 @@ export class FastDiceBox extends Application {
             noOfDice = Number.parseInt(result.noOfDice);
         }
 
-        if (/^\d/.test(target.dataset.roll)) noOfDice = '';
+        if (/^[^d]/.test(target.dataset.roll)) noOfDice = '';
 
         const formula = modifier === 0
             ? `${noOfDice}${target.dataset.roll}`

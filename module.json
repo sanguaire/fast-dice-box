@@ -2,7 +2,7 @@
   "id": "fast-dice-box",
   "title": "Fast dice box",
   "description": "A box to make an one click dice roll",
-  "version": "0.91",
+  "version": "0.10.1",
   "authors": [{
     "name": "André Kurth",
     "discord": "Sanguaire#7321"
@@ -59,6 +59,6 @@
   "socket": true,
   "library": false,
   "url": "https://github.com/sanguaire/fast-dice-box/",
-  "manifest": "https://github.com/sanguaire/fast-dice-box/releases/download/v0.91/module.json",
-  "download": "https://github.com/sanguaire/fast-dice-box/releases/download/v0.91/fast-dice-box.zip"
+  "manifest": "https://github.com/sanguaire/fast-dice-box/releases/download/v0.10.1/module.json",
+  "download": "https://github.com/sanguaire/fast-dice-box/releases/download/v0.10.1/fast-dice-box.zip"
 }
