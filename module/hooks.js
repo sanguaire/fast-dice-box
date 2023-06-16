@@ -30,6 +30,9 @@ export const registerHookHandlers = () =>{
         });
 
     Hooks.once('ready', async () => {
+        if(!game.settings.get(CONST.MODULE_NAME, "renderDiceBox")) {
+            return;
+        }
        await ui.fastDiceBox.render(true);
        Hooks.on("core-rollMode-changed", ui.fastDiceBox["rollModeChanged"].bind(ui.fastDiceBox))
     });
