@@ -3,6 +3,15 @@ import {DiceConfig} from "./dice-config.js";
 import {debounce} from "./utils.js";
 
 export const registerSettings = () => {
+    game.settings.register(CONST.MODULE_NAME, "renderDiceBox", {
+        name: game.i18n.localize("fdb.render-dice-box"),
+        scope: "client",
+        type: Boolean,
+        default: true,
+        config: true,
+        requiresReload: true
+    });
+
     game.settings.register(CONST.MODULE_NAME, "diceColor", {
         name: game.i18n.localize("fdb.dice-color"),
         hint: game.i18n.localize("fdb.dice-color-hint"),

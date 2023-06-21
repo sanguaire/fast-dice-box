@@ -36,6 +36,7 @@
     "no-roll-modes": "Don´t show roll modes",
     "notification": "Notification",
     "notification-hint": "Show additional notification on roll.",
+    "render-dice-box": "Render dice box?",
     "reversed": "Reverse direction",
     "reversed-hint": "Swaps the fold-out direction of the dice from right to left or bottom to top.",
     "rm-reversed": "Move role mode",
