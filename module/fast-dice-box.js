@@ -102,6 +102,9 @@ export class FastDiceBox extends Application {
             } else {
                 element.removeClass("rm-reversed");
             }
+
+            $("#fast-dice-box").find(".collapsible").removeClass("active");
+            FastDiceBox.collapse();
         };
 
         if (!this.rendered) super._render(force, options).then(() => that.render(f, o));
@@ -138,31 +141,44 @@ export class FastDiceBox extends Application {
         const fdb = $("#fast-dice-box");
         btn.toggleClass("active");
 
+        if(btn.hasClass("active")){
+            FastDiceBox.expand();
+        } else
+        {
+            FastDiceBox.collapse();
+        }
+    }
+
+    static expand() {
+        const fdb = $("#fast-dice-box");
+        const content = fdb.find(".content");
         const reversed = game.settings.get(CONST.MODULE_NAME, "reversed");
         const directionColumn = game.settings.get(CONST.MODULE_NAME, "columnDirection");
         const top = game.settings.get(CONST.MODULE_NAME, "top");
         const left = game.settings.get(CONST.MODULE_NAME, "left");
 
-        const content = btn.next();
+        content.css("display", "flex");
 
-        if(btn.hasClass("active")){
-            content.css("display", "flex");
-
-            if(reversed) {
-                if(directionColumn) {
-                    fdb.css("top", (top - content.outerHeight()) + "px");
-                    fdb.css("left", left + "px");
-                } else {
-                    fdb.css("top", top + "px");
-                    fdb.css("left", (left - content.outerWidth()) + "px");
-                }
+        if(reversed) {
+            if(directionColumn) {
+                fdb.css("top", (top - content.outerHeight()) + "px");
+                fdb.css("left", left + "px");
+            } else {
+                fdb.css("top", top + "px");
+                fdb.css("left", (left - content.outerWidth()) + "px");
             }
-        } else
-        {
-            content.css("display", "none");
-            fdb.css("top", top + "px");
-            fdb.css("left", left + "px");
         }
+    }
+
+    static collapse() {
+        const fdb = $("#fast-dice-box");
+        const content = fdb.find(".content");
+        const top = game.settings.get(CONST.MODULE_NAME, "top");
+        const left = game.settings.get(CONST.MODULE_NAME, "left");
+
+        content.css("display", "none");
+        fdb.css("top", top + "px");
+        fdb.css("left", left + "px");
     }
 
     async onFastRoll(ev) {
